@@ -1,0 +1,13 @@
+<div class="col-md-3">
+    <h3>{{$subject->subject_type->name}}</h3>
+    <input type="checkbox" id="{{$subject->subject_type->name.$subject->title}}"
+        name="{{$subject->subject_type->name.$subject->title}}" value="{{$subject->id}}">
+    <label for="{{$subject->subject_type->name.$subject->title}}">{{$subject->title}}</label>
+    <input type="checkbox" id="{{$subject->subject_type->name.$subject->title}}"
+        name="{{$subject->subject_type->name.$subject->title}}" value="{{$subject->id}}">
+    <label for="{{$subject->subject_type->name.$subject->title}}">{{$subject->title}}</label>
+</div>
+
+<div class="col-md-3">
+    <h3>{{$subject->subject_type->name}}</h3>
+</div>

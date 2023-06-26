@@ -1,0 +1,109 @@
+.sidebar-content {
+    width: 200px !important;
+}
+.side-on{
+  width: 200px !important;
+}
+
+
+.nav.nav-tabs.nav-tabs-highlight>li>a.nav-link.active{
+  background-color: #095e54;
+  color: white;
+}
+.nav.nav-tabs.nav-tabs-highlight>li>a.nav-link{
+  color: white;
+}
+.nav.nav-tabs.nav-tabs-highlight{
+  background-color: green;
+  color: white;
+  top: 70px;
+}
+.fc-corner-left, .fc-corner-right{
+  border: none !important;
+  background-color: transparent;
+  color: #2ea5de;
+}
+.fc-icon:after {
+  font-size: 1.5rem !important;
+}
+.fc-left, .fc-right{
+  margin-top: 6px;
+}
+/* .fc-view-container{
+  height: 290px !important;
+  overflow-y:scroll;
+} */
+.fc-view-container, .fc-header-toolbar{
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 20px;
+}
+.fc-header-toolbar{
+  margin-bottom: 0.5rem !important;
+}
+.fc-view{
+  height: 250px !important;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
+}
+.fc-row>table>thead>tr{
+  line-height: 0;
+}
+.fc-agendaWeek-button{
+  border: none;
+  background:none;
+  color:#2ea5de;
+}
+.card-sidebar-mobile>.nav-sidebar>.nav-item>.nav-link.active{
+  background:none !important;
+  color: #26a69a !important;
+}
+
+.nav-link1 {
+  padding: 0 1.25rem !important;
+}
+.nav-item-submenu>.nav-link:after {
+  top: .1rem;
+}
+
+.card-sidebar-mobile>.nav-sidebar>.nav-item>.nav-link>span:hover{
+  background:none !important;
+  color: #26a69a !important;
+}
+.card-sidebar-mobile>.nav-sidebar>.nav-item{
+  height: 30px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.fc-center>h2{
+  font-size: 1.6rem !important;
+}
+.content{
+  align-items: end;
+}
+
+/* width */
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(21, 20, 20);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3939;
+}
