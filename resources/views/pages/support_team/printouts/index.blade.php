@@ -14,6 +14,22 @@
     border: 1px solid black
 }
 
+.label_report_form {
+    font-size: 14px;
+    float: left;
+    margin-left: 7px;
+    margin-top: 2px;
+    font-weight: unset;
+}
+
+#option-div {
+    background-color: white;
+    margin-top: 20px;
+    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 label {
     font-size: 16px;
     float: left;
@@ -820,11 +836,14 @@ td {
                                                 <div class="col-3" style="padding-top:17px">
                                                     <div style="float:right">
                                                         <p style="text-align:left;font-size:20px">
-                                                            {{$schoolname->school_postal}} </p>
+                                                            {{$schoolname->school_postal}}
+                                                        </p>
                                                         <p style="text-align:left;font-size:20px">
-                                                            {{$schoolname->school_phone}} </p>
+                                                            {{$schoolname->school_phone}}
+                                                        </p>
                                                         <p style="text-align:left;font-size:20px">
-                                                            {{$schoolname->school_email}} </p>
+                                                            {{$schoolname->school_email}}
+                                                        </p>
                                                         </p>
                                                     </div>
 
@@ -1408,15 +1427,147 @@ td {
                     </div>
                 </div>
                 <div class="col-12" id="report_form_panel">
-                    <div></div>
+                    <div class="row ">
+                        <div class="col-12" id="spin-div">
+                        </div>
+                        <div class="col-12" id="option-div">
+                            <h4 style="text-align: left;margin-left:20px;float:left">Options </h4>
+                            <icon class="up_arrow_option_div">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </icon>
+                            <icon class="down_arrow_option_div">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </icon>
+                        </div>
+                        <div class="col-12">
+                            <hr style="margin:0px 20px">
+                        </div>
+                        <div class="col-12" id="option-panel" style="background-color: white">
+                            <div class="container" style="margin-top:50px">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p style="text-align:left;">Fee Statesments</p>
+                                        <p style="text-align: left;"><a
+                                                style="color:blue;text-decoration:none;float:left;margin-right:20px">Download
+                                            </a>
+                                            <icon style="float:left;margin-right:20px"><svg style="color:blue"
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                    <path
+                                                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                                </svg>
+                                            </icon>
+                                            and fill the fees template then upload it below.(Please leave the others
+                                            column headers intact )
+                                            <span style="color:red">*</span>
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="file" class="form-control" id="customFile" />
+                                            </div>
+                                            <div class="col-6" style="margin-top:15px">
+                                                <p style="text-align: left;">School Closed On:</p>
+                                                <div class="md-form md-outline input-with-post-icon datepicker">
+                                                    <input placeholder="Select date" type="date" id="example"
+                                                        class="form-control">
+                                                </div>
+                                                <p style="text-align: left;margin-top:20px"> Remarks: </p>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Class Teacher's Remark</label>
+                                                </div>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Principal's Remarks
+                                                        Rank</label>
+                                                </div>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Overall Student Rank</label>
+                                                </div>
+                                                <div style="margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Stream Student Rank</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6" style="margin-top:15px">
+                                                <p style="text-align: left;">Next Term Begins On:</p>
+                                                <div class="md-form md-outline input-with-post-icon datepicker">
+                                                    <input placeholder="Select date" type="date" id="example"
+                                                        class="form-control">
+                                                </div>
+                                                <p style="text-align: left;margin-top:20px"> Signatures: </p>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Class Teacher's
+                                                        Signatures</label>
+                                                </div>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Principal's Signatures</label>
+                                                </div>
+                                                <div style="display: -webkit-box;margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Parent's signature slot
+                                                        others</label>
+                                                </div>
+                                                <div style="margin-left:30px">
+                                                    <input type="checkbox"
+                                                        style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                        class="checkbox">
+                                                    <label class="label_report_form">Show Crednetials</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12" id="student_card_panel">
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="merit-lists" style="margin-bottom:30px;margin-top:0px;padding-top:20px">
+            <div class=" tab-pane fade" id="merit-lists" style="margin-bottom:30px;margin-top:0px;padding-top:20px">
                 <div class="row">
                     <div class="col-12" style="background-color:white;padding-top:35px">
                         <div>
-                            <h4 style="text-align: left;margin-left:20px;float:left">Merit List</h4>
+                            <h4 style="text-align: left;margin-left:20px;float:left">
+                                Merit List</h4>
                             <icon id="clickable_arr_up">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     style="float:right;margin-right:33px;color:#CE9178" width="16" height="16"
@@ -1451,7 +1602,8 @@ td {
                                         class="form-control select_form_metalist" data-placeholder="Select Form">
                                         <option value="">Select Form</option>
                                         @foreach($form as $val)
-                                        <option value={{$val->id}}>{{$val->name}}</option>
+                                        <option value={{$val->id}}>{{$val->name}}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -1483,7 +1635,8 @@ td {
                                         data-placeholder="Select Stream(Optional)">
                                         <option value="">Select Exam</option>
                                         @foreach($exams as $exam)
-                                        <option value={{$exam->id}}>{{$exam->name}}</option>
+                                        <option value={{$exam->id}}>{{$exam->name}}
+                                        </option>
                                         @endforeach
                                     </select>
                                     <button type="button" id="get_metalist_meta" class="btn btn-primary"
@@ -1509,7 +1662,8 @@ td {
                                                     <path fill-rule="evenodd"
                                                         d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM6.472 15.29a1.176 1.176 0 0 1-.111-.449h.765a.578.578 0 0 0 .254.384c.07.049.154.087.25.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.527-.422.225-.1.484-.149.777-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.625.625 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.217.05.406.12.566.211a1 1 0 0 1 .375.358c.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm-2.945-3.358h-.893L1.81 13.37h-.036l-.832-1.438h-.93l1.227 1.983L0 15.931h.861l.853-1.415h.035l.85 1.415h.908L2.253 13.94l1.274-2.007Zm2.727 3.325H4.557v-3.325h-.79v4h2.487v-.675Z" />
                                                 </svg></icon>
-                                            <span style="margin-left:10px;">As Spreedsheet</span>
+                                            <span style="margin-left:10px;">As
+                                                Spreedsheet</span>
                                         </button>
                                         <button class="dropdown-item" id="pdf_meta" type="button">
                                             <icon><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -1520,7 +1674,8 @@ td {
                                                     <path
                                                         d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
                                                 </svg></icon>
-                                            <span style="margin-left:10px;">As PDF</span>
+                                            <span style="margin-left:10px;">As
+                                                PDF</span>
                                         </button>
                                     </div>
                                 </div>
@@ -1534,8 +1689,8 @@ td {
 
                                 <div class=" scrollbar " id="style-default">
                                     <!-- <div id="testtableshow"> -->
-                                    <p style="margin-top:20px;text-align:left;font-size:18px">FORM <span
-                                            class="form_name"></span>
+                                    <p style="margin-top:20px;text-align:left;font-size:18px">
+                                        FORM <span class="form_name"></span>
                                         <span class="stream_name"></span> - <span class="exam_name"></span>,<span
                                             class="year"></span>-(<span class="year"></span>
                                         Term
@@ -1576,10 +1731,10 @@ td {
                                                 <div class="col-5">
                                                     <h1>{{$schoolname->school_name}}-{{$schoolname->school_postal}}
                                                     </h1>
-                                                    <p>FORM <span class="form_name"></span> <span
-                                                            class="stream_name"></span> - <span
-                                                            class="exam_name"></span>,<span class="year"></span>-(<span
-                                                            class="year"></span>
+                                                    <p>FORM <span class="form_name"></span>
+                                                        <span class="stream_name"></span>
+                                                        - <span class="exam_name"></span>,<span
+                                                            class="year"></span>-(<span class="year"></span>
                                                         Term
                                                         <span class="term"></span>)
                                                     </p>
@@ -1608,7 +1763,8 @@ td {
                                                 style="padding:6px !important">
                                                 <thead class="second_head">
                                                     <tr>
-                                                        <th colspan="19">Grade Break</th>
+                                                        <th colspan="19">Grade Break
+                                                        </th>
                                                     </tr>
                                                     <tr>
                                                         <th>Form</th>
@@ -1679,11 +1835,13 @@ td {
                                                 <p style="font-size:30px;font-weight:bold;line-height:0.8">
                                                     {{$schoolname->school_name}}-{{$schoolname->school_postal}}
                                                 </p>
-                                                <p style="font-size:19px;line-height:0.6">FORM <span
-                                                        class="form_name"></span> <span class="stream_name"></span>
+                                                <p style="font-size:19px;line-height:0.6">
+                                                    FORM <span class="form_name"></span>
+                                                    <span class="stream_name"></span>
                                                     -
                                                     <span class="exam_name"></span>,<span class="year"></span>-(<span
-                                                        class="year"></span> Term
+                                                        class="year"></span>
+                                                    Term
                                                     <span class="term"></span>)
                                                 </p>
                                             </div>
@@ -1714,7 +1872,8 @@ td {
                                                     style="padding:6px !important;width:100%;border-collapse:collapse;font-weight:bold;margin-top:10px;font-size:12px">
                                                     <thead class="second_head">
                                                         <tr>
-                                                            <th colspan="19" style="text-align:center">Grade
+                                                            <th colspan="19" style="text-align:center">
+                                                                Grade
                                                                 Break
                                                             </th>
                                                         </tr>
@@ -1747,7 +1906,8 @@ td {
                                                     style="padding:6px !important;font-size:12px;width:100%;margin-top:40px;border-collapse:collapse;font-weight:bold;margin-top:12px">
                                                     <thead class="third_head">
                                                         <tr>
-                                                            <th colspan="19" style="text-align:center">Class
+                                                            <th colspan="19" style="text-align:center">
+                                                                Class
                                                                 Grade
                                                                 Summary</th>
                                                         </tr>
@@ -1796,10 +1956,9 @@ td {
 
             </div>
         </div>
-    </div>
 
-    @include('partials.js.class_index')
-    @include('partials.js.class_list')
-    @include('partials.js.group_index')
-    @include('partials.js.report_forms')
-    @endsection
+        @include('partials.js.class_index')
+        @include('partials.js.class_list')
+        @include('partials.js.group_index')
+        @include('partials.js.report_forms')
+        @endsection

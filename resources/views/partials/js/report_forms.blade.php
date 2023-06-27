@@ -50,7 +50,7 @@ $("#get_report_form").on("click", () => {
     $("#report_form_first").hide()
     str =
         '<div class="col-12" id="spinner_area" style="margin-top:70px"><p stye="font-size:25px;">Generating Report Forms , Please wait ....</p><div class="spinner-square" style="margin:auto"><div class="square-1 square"></div><div class="square-2 square"></div><div class="square-3 square"></div></div></div>'
-    $("#report_form_panel").append(str)
+    $("#spin-div").append(str)
     setTimeout(() => {
         $("#spinner_area").hide();
         $("#print_arr").show(600);
@@ -284,5 +284,20 @@ $("#get_report_form").on("click", () => {
     //     })();
     //     display_analysis(res)
     // })
+})
+
+
+$(".up_arrow_option_div").hide()
+$(".down_arrow_option_div").show()
+$("#option-panel").hide()
+$(".up_arrow_option_div").on("click", () => {
+    $(".down_arrow_option_div").show()
+    $(".up_arrow_option_div").hide()
+    $("#option-panel").hide(300)
+})
+$(".down_arrow_option_div").on("click", () => {
+    $(".down_arrow_option_div").hide()
+    $(".up_arrow_option_div").show()
+    $("#option-panel").show(300)
 })
 </script>
