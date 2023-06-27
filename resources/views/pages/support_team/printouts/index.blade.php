@@ -1326,6 +1326,90 @@ td {
 
 
             <div class="tab-pane fade" id="report-forms">
+                <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
+                    <div class="row">
+                        <div class="col-12" style="padding:0px 20px">
+                            <h4 style="text-align: left;margin-left:20px;float:left">Report Forms </h4>
+                            <icon class="up_arrow_report_form">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </icon>
+                            <icon class="down_arrow_report_form">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </icon>
+
+                        </div>
+
+                    </div>
+                    <hr style="margin:0px 20px">
+                    <div class="row" id="report_form_first" style="margin-top:15px">
+                        <div class="col-md-6" style="padding:0px 40px">
+                            <div class="form-group">
+                                <label for="select-form" style="float:left;font-weight:bold">Form</label>
+                                <select name="select-form"
+                                    style="font-size:16px;background-color:white !important;color:black;"
+                                    id="select_form_report_form" class="form-control" data-placeholder="Select Form"
+                                    required>
+                                    <option value="">Select Form</option>
+                                    @foreach($form as $val)
+                                    <option value={{$val->id}}>{{$val->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding:0px 40px">
+                            <div class="form-group">
+                                <label for="select-stream" style="float:left;font-weight:bold">Stream</label>
+                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
+                                    id="select_stream_report_form" class="form-control"
+                                    data-placeholder="Select Stream(Optional)" required>
+                                    <option>Select Stream</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="spinner-square"
+                                style="margin-top:40px;margin-bottom:30px;float:right;margin-right:20px;display:none">
+                                <div class="square-1 square"></div>
+                                <div class="square-2 square"></div>
+                                <div class="square-3 square"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none;padding:0px 40px" id="exam_area_report_form">
+                            <div class="form-group">
+                                <label for="select-exam" style="float:left;font-weight:bold">Exam</label>
+                                <select name="select-exam" style="background-color:white !important;font-size:16px"
+                                    id="select_exam_report_form" class="form-control"
+                                    data-placeholder="Select Stream(Optional)" required>
+                                    <option value="">Select Exam</option>
+                                    @foreach($exams as $exam)
+                                    <option value={{$exam->id}}>{{$exam->name}}</option>
+                                    @endforeach
+                                </select>
+                                <button type="button" id="get_report_form" class="btn btn-primary"
+                                    style="float:right;margin-top:30px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
+                                    Report Forms
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" id="report_form_panel">
+                    <div></div>
+                </div>
             </div>
 
             <div class="tab-pane fade" id="merit-lists" style="margin-bottom:30px;margin-top:0px;padding-top:20px">
@@ -1717,4 +1801,5 @@ td {
     @include('partials.js.class_index')
     @include('partials.js.class_list')
     @include('partials.js.group_index')
+    @include('partials.js.report_forms')
     @endsection
