@@ -787,7 +787,7 @@ class PrintOutsController extends Controller
 
     public function exposeOrderofArray_Overall($array, $studentId)
     {
-        usort($array, function($a, $b) {
+        usort($array, function ($a, $b) {
             return $b[0] - $a[0];
         });
         foreach ($array as $key => $element) {
@@ -799,7 +799,8 @@ class PrintOutsController extends Controller
         return -1;
     }
 
-    public function getStudentStream($stream_id, $exam_id){
+    public function getStudentStream($stream_id, $exam_id)
+    {
         $marksArray = [];
         $students = $this->my_class->get_studenst($stream_id);
         foreach ($students as $each_stu) {
@@ -833,17 +834,25 @@ class PrintOutsController extends Controller
             $TotalofMaxpoint_pre = 0;
             $Total_got_marks_pre = 0;
             $Total_point_pre = 0;
-            foreach ($pre_student_exam_results as $pre_stu) {
-                $TotalofMaxpoint_pre += $pre_stu->p_comment;
-                $Total_got_marks_pre += $pre_stu->pos;
-                $grades = $pre_stu->class_type->grades;
-                foreach ($grades as $grade) {
-                    if ($grade->mark_from <= $pre_stu->pos && $grade->mark_to > $pre_stu->pos) {
-                        $Total_point_pre += $grade->remark;
+            if (count($pre_student_exam_results) === 0) {
+                $TotalofMaxpoint_pre = 0;
+                $Total_got_marks_pre = 0;
+                $Total_point_pre = 0;
+                $meanmark_pre = 0;
+            } else {
+                foreach ($pre_student_exam_results as $pre_stu) {
+                    $TotalofMaxpoint_pre += $pre_stu->p_comment;
+                    $Total_got_marks_pre += $pre_stu->pos;
+                    $grades = $pre_stu->class_type->grades;
+                    foreach ($grades as $grade) {
+                        if ($grade->mark_from <= $pre_stu->pos && $grade->mark_to > $pre_stu->pos) {
+                            $Total_point_pre += $grade->remark;
+                        }
                     }
                 }
+                $meanmark_pre = number_format($Total_got_marks_pre / count($pre_student_exam_results), 2);
             }
-            $meanmark_pre = number_format($Total_got_marks_pre/count($pre_student_exam_results), 2) ;
+
             $TotalofMaxpoint = 0;
             $Total_got_marks = 0;
             $Total_point = 0;
@@ -857,7 +866,7 @@ class PrintOutsController extends Controller
                     }
                 }
             }
-            $meanmark = number_format($Total_got_marks/count($student_exam_results), 2) ;
+            $meanmark = number_format($Total_got_marks / count($student_exam_results), 2);
             $grades = $student_exam_results[0]->class_type->grades;
             $meangrade = "";
 
@@ -867,7 +876,7 @@ class PrintOutsController extends Controller
                 }
             }
 
-            $subjects_student = $this->exam->getSubject_Student( $student_id, $exam_id);
+            $subjects_student = $this->exam->getSubject_Student($student_id, $exam_id);
             $empty_arr = [];
             foreach ($subjects_student  as $val) {
                 if (!$this->check_subject_id($empty_arr, $val->af)) {
@@ -876,16 +885,43 @@ class PrintOutsController extends Controller
                     array_push($empty_arr, $val->af);
                 }
             }
-            foreach($empty_arr as $subject){
-                foreach( $subjects_student as $entity){
-                    if ($subject==$entity->af) {
+            $tabledata = [];
+            foreach ($empty_arr as $subject) {
+                foreach ($subjects_student as $entity) {
+                    if ($subject == $entity->af) {
                         $subjectName = $this->exam->subject_name($subject)->title;
-                        $mark =  intval($entity->pos)/intval($entity->p_comment);
+                        $preexamarrr = $this->exam->getArray($subject, $student_id, intval($exam_id) - 1);
+                        $mark_pre =  intval($preexamarrr->pos) / intval($preexamarrr->p_comment);
+                        $mark =  intval($entity->pos) / intval($entity->p_comment);
+                        $grades = $entity->class_type->grades;
+                        $grade_name = "";
+                        foreach ($grades as $key => $grade) {
+                            if ($grade->mark_from <= $entity->pos && $grade->mark_to > $entity->pos) {
+                                $grade_name = $grade->name;
+                            }
+                        }
+                        $subject_marks_arr = $this->exam->getSubject_marks_arr($exam_id, $subject, $stream_id);
+                        $subject_arr = [];
+                        foreach ($subject_marks_arr as $entity_per) {
+                            array_push($subject_arr, [$entity_per->pos, $entity_per->student_id]);
+                        }
+                        $order_in_subject_marks = $this->exposeOrderofArray_Overall($subject_arr, $student_id);
+                        $rank = $order_in_subject_marks . '/' . count($subject_arr);
+                        $comment = "Below average, can do better";
+                        $teacher_name = $this->exam->getSubjectTeacherName($subject, $stream_id)->teacher->user->name;
+                        $tabledata = [
+                            "subjectName" => $subjectName,
+                            "mark" => ($mark*100)."%",
+                            "dev" => ($mark - $mark_pre)*100,
+                            "grade" => $grade_name,
+                            "rank" => $rank,
+                            "comment" => $comment,
+                            "teachername" => $teacher_name
+                        ];
                     }
                 }
             }
-
-            $left_half_data = [
+            $data = [
                 "admno" => $each_stu->adm_no,
                 "name" => $each_stu->user->name,
                 "stream_name" => "Form:" . " " . $form_id . " " . $stream_name,
@@ -893,17 +929,19 @@ class PrintOutsController extends Controller
                 "deviation_marks>" => $TotalofMaxpoint - $TotalofMaxpoint_pre,
                 "totalpoint" => $Total_point,
                 "dev_point" => $Total_point - $Total_point_pre,
-                "over_order" =>$over_order,
-                "mean_marks"=>$meanmark,
-                "dev_mean_mark"=>$meanmark-$meanmark_pre,
+                "over_order" => $over_order,
+                "mean_marks" => $meanmark,
+                "dev_mean_mark" => $meanmark - $meanmark_pre,
                 "meangrade" => $meangrade,
-                "streamorder"=>$stream_order,
-                "total_memeber_form"=>count($oneDArray),
-                "total_member_stream"=>count($streamArray)
+                "streamorder" => $stream_order,
+                "total_memeber_form" => count($oneDArray),
+                "total_member_stream" => count($streamArray),
+                "tabledata"=>$tabledata
             ];
-            dd( $left_half_data);
-            array_push($arranged_stu_arr, $each_stu->adm_no);
+
+            array_push($arranged_stu_arr,  $data );
         }
+        return json_encode(["data"=>$arranged_stu_arr]);
     }
 
     public function get_each_student_marks($data, $form_id, $exam_id)

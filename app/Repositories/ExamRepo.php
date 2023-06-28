@@ -72,9 +72,22 @@ class ExamRepo
     {
         return metalist::where(['stream_id' => $stream_id])->get();
     }
+
     public function subject_name($val)
     {
         return Subject::where('id', $val)->first();
+    }
+
+    public function getSubjectTeacherName($subject,$stream_id){
+        return ClassSubject::where(["subject_id"=>$subject,"my_class_id"=>$stream_id])->with("teacher.user")->first();
+    }
+
+    public function getSubject_marks_arr($exam_id,$subject,$stream_id){
+        return ExamRecord::where(["exam_id"=>$exam_id,"af"=>$subject,'my_class_id'=>$stream_id])->get();
+    }
+
+    public function getArray($subject,$student_id, $exam_id){
+        return ExamRecord::where(["student_id"=>$student_id,"exam_id"=>$exam_id,"af"=>$subject])->first();
     }
 
     public function students_subject($exam_id, $value)
