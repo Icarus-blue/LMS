@@ -32,6 +32,15 @@ class ExamRepo
         return Subject::where()->get();
     }
 
+
+    public function getExamrecordsPerStudent($student_id,$exam_id,$stream_id){
+        return ExamRecord::where(["exam_id"=>$exam_id,"student_id"=>$student_id,"my_class_id"=>$stream_id])->with("class_type.grades")->get();
+    }
+
+    public function getFormName($id){
+        return Exam::where("id",$id)->first();
+    }
+
     public function subject_score_form($value, $exam_id)
     {
         return ExamRecord::where(['af' => $value, 'exam_id' => $exam_id])->get();
@@ -145,6 +154,10 @@ class ExamRepo
         } else {
             return false;
         }
+    }
+
+    public function getSubject_Student( $student_id, $exam_id){
+        return ExamRecord::where(["student_id"=>$student_id,"exam_id"=> $exam_id])->get();
     }
 
     public function get_stream_id_by_formid($form_id)

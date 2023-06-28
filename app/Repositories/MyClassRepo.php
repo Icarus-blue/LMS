@@ -29,8 +29,9 @@ class MyClassRepo
         return ClassSubject::where(['my_class_id' => $class_id, 'subject_id' => $subject_id])->first();
     }
 
-    public function get_stu_list($stream_id){
-        return Student::where('my_class_id',$stream_id)->with("user")->get();
+    public function get_stu_list($stream_id)
+    {
+        return Student::where('my_class_id', $stream_id)->with("user")->get();
     }
 
     public function get_stream_name($stream_id)
@@ -69,6 +70,11 @@ class MyClassRepo
     public function find_stream_by_formID($form_id)
     {
         return MyClass::where("form_id", $form_id)->get();
+    }
+
+    public function get_studenst($stream_id)
+    {
+        return Student::where("my_class_id", $stream_id)->with("user")->get();
     }
 
     public function getClass($form_id)
@@ -234,7 +240,7 @@ class MyClassRepo
 
     public function get_subjectlists($stream_id)
     {
-        return MyClass::where('id',$stream_id)->with("class_subject.subject")->first();
+        return MyClass::where('id', $stream_id)->with("class_subject.subject")->first();
     }
     public function findSection($id)
     {

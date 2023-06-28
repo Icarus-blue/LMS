@@ -764,6 +764,148 @@ class PrintOutsController extends Controller
         ]);
     }
 
+    public function getOrderStudentByMark($form_id,  $stream_id, $exam_id)
+    {
+        $streams = $this->exam->get_stream_id_by_formid($form_id);
+        $marksArray = [];
+        foreach ($streams as $key => $stream) {
+            $marksArray[$key] = [];
+            $students = $this->my_class->get_studenst($stream->id);
+            foreach ($students as $each_stu) {
+                $student_id = $each_stu->id;
+                $student_exam_results = $this->exam->getExamrecordsPerStudent($student_id, $exam_id, $stream_id);
+                $Total_got_marks = 0;
+                foreach ($student_exam_results as $markpersub) {
+                    $Total_got_marks += $markpersub->pos;
+                }
+                array_push($marksArray[$key], [$Total_got_marks, $student_id]);
+            }
+        }
+        $oneDArray = array_reduce($marksArray, 'array_merge', array());
+        return $oneDArray;
+    }
+
+    public function exposeOrderofArray_Overall($array, $studentId)
+    {
+        usort($array, function($a, $b) {
+            return $b[0] - $a[0];
+        });
+        foreach ($array as $key => $element) {
+            if ($element[1] == $studentId) {
+                return $key;
+            }
+        }
+        // if the student ID is not found in the array
+        return -1;
+    }
+
+    public function getStudentStream($stream_id, $exam_id){
+        $marksArray = [];
+        $students = $this->my_class->get_studenst($stream_id);
+        foreach ($students as $each_stu) {
+            $student_id = $each_stu->id;
+            $student_exam_results = $this->exam->getExamrecordsPerStudent($student_id, $exam_id, $stream_id);
+            $Total_got_marks = 0;
+            foreach ($student_exam_results as $markpersub) {
+                $Total_got_marks += $markpersub->pos;
+            }
+            array_push($marksArray, [$Total_got_marks, $student_id]);
+        }
+        return $marksArray;
+    }
+
+    public function get_meta_data_for_report_form(Request $req)
+    {
+        $stream_id = $req['stream_id'];
+        $exam_id = $req['exam_id'];
+        $form_id = $req['form_id'];
+        $oneDArray = $this->getOrderStudentByMark($form_id,  $stream_id, $exam_id);
+        $streamArray = $this->getStudentStream($stream_id, $exam_id);
+        $stream_name = $this->my_class->get_stream_name($stream_id)->stream;
+        $students = $this->my_class->get_studenst($stream_id);
+        $arranged_stu_arr = [];
+        foreach ($students as $each_stu) {
+            $student_id = $each_stu->id;
+            $over_order = $this->exposeOrderofArray_Overall($oneDArray, $student_id);
+            $stream_order = $this->exposeOrderofArray_Overall($streamArray, $student_id);
+            $student_exam_results = $this->exam->getExamrecordsPerStudent($student_id, $exam_id, $stream_id);
+            $pre_student_exam_results = $this->exam->getExamrecordsPerStudent($student_id, intval($exam_id) - 1, $stream_id);
+            $TotalofMaxpoint_pre = 0;
+            $Total_got_marks_pre = 0;
+            $Total_point_pre = 0;
+            foreach ($pre_student_exam_results as $pre_stu) {
+                $TotalofMaxpoint_pre += $pre_stu->p_comment;
+                $Total_got_marks_pre += $pre_stu->pos;
+                $grades = $pre_stu->class_type->grades;
+                foreach ($grades as $grade) {
+                    if ($grade->mark_from <= $pre_stu->pos && $grade->mark_to > $pre_stu->pos) {
+                        $Total_point_pre += $grade->remark;
+                    }
+                }
+            }
+            $meanmark_pre = number_format($Total_got_marks_pre/count($pre_student_exam_results), 2) ;
+            $TotalofMaxpoint = 0;
+            $Total_got_marks = 0;
+            $Total_point = 0;
+            foreach ($pre_student_exam_results as $markpersub) {
+                $TotalofMaxpoint += $markpersub->p_comment;
+                $Total_got_marks += $markpersub->pos;
+                $grades = $markpersub->class_type->grades;
+                foreach ($grades as $grade) {
+                    if ($grade->mark_from <= $markpersub->pos && $grade->mark_to > $markpersub->pos) {
+                        $Total_point += $grade->remark;
+                    }
+                }
+            }
+            $meanmark = number_format($Total_got_marks/count($student_exam_results), 2) ;
+            $grades = $student_exam_results[0]->class_type->grades;
+            $meangrade = "";
+
+            foreach ($grades as $grade) {
+                if ($grade->mark_from <= $meanmark && $grade->mark_to > $meanmark) {
+                    $meangrade = $grade->name;
+                }
+            }
+
+            $subjects_student = $this->exam->getSubject_Student( $student_id, $exam_id);
+            $empty_arr = [];
+            foreach ($subjects_student  as $val) {
+                if (!$this->check_subject_id($empty_arr, $val->af)) {
+                    continue;
+                } else {
+                    array_push($empty_arr, $val->af);
+                }
+            }
+            foreach($empty_arr as $subject){
+                foreach( $subjects_student as $entity){
+                    if ($subject==$entity->af) {
+                        $subjectName = $this->exam->subject_name($subject)->title;
+                        $mark =  intval($entity->pos)/intval($entity->p_comment);
+                    }
+                }
+            }
+
+            $left_half_data = [
+                "admno" => $each_stu->adm_no,
+                "name" => $each_stu->user->name,
+                "stream_name" => "Form:" . " " . $form_id . " " . $stream_name,
+                "current_total_maxmarks" => $TotalofMaxpoint,
+                "deviation_marks>" => $TotalofMaxpoint - $TotalofMaxpoint_pre,
+                "totalpoint" => $Total_point,
+                "dev_point" => $Total_point - $Total_point_pre,
+                "over_order" =>$over_order,
+                "mean_marks"=>$meanmark,
+                "dev_mean_mark"=>$meanmark-$meanmark_pre,
+                "meangrade" => $meangrade,
+                "streamorder"=>$stream_order,
+                "total_memeber_form"=>count($oneDArray),
+                "total_member_stream"=>count($streamArray)
+            ];
+            dd( $left_half_data);
+            array_push($arranged_stu_arr, $each_stu->adm_no);
+        }
+    }
+
     public function get_each_student_marks($data, $form_id, $exam_id)
     {
         $str = '';
@@ -922,12 +1064,10 @@ class PrintOutsController extends Controller
     public function download_classlist_excel(Request $req)
     {
         if (count($req['values']) > 0) {
-            return Excel::download(new ExportCustomExcel($req["form_id"], $req["stream_id"],$req["values"]), 'users.xlsx');
+            return Excel::download(new ExportCustomExcel($req["form_id"], $req["stream_id"], $req["values"]), 'users.xlsx');
         } else {
             return Excel::download(new Exportclasslist($req["form_id"], $req["stream_id"]), 'users.xlsx');
         }
-
-
     }
     public function download_metalist_pdf(Request $req)
     {
