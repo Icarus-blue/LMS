@@ -14,6 +14,10 @@
     border: 1px solid black
 }
 
+.insert_container p {
+    line-height: 1;
+}
+
 .label_report_form {
     font-size: 14px;
     float: left;
@@ -1460,7 +1464,8 @@ td {
                                     <div class="col-12">
                                         <p style="text-align:left;">Fee Statesments</p>
                                         <p style="text-align: left;"><a
-                                                style="color:blue;text-decoration:none;float:left;margin-right:20px">Download
+                                                style="color:blue;text-decoration:none;float:left;margin-right:20px"
+                                                href="javascript:void(0)" onclick="downloadTemplate()">Download
                                             </a>
                                             <icon style="float:left;margin-right:20px"><svg style="color:blue"
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -1485,31 +1490,37 @@ td {
                                                     <input placeholder="Select date" type="date" id="example"
                                                         class="form-control">
                                                 </div>
-                                                <p style="text-align: left;margin-top:20px"> Remarks: </p>
+                                                <p
+                                                    style="text-align: left;margin-top:20px;margin-left:30px;font-weight:bold">
+                                                    Remarks:
+                                                </p>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
+                                                        class="checkbox" id="classteacherremark">
                                                     <label class="label_report_form">Show Class Teacher's Remark</label>
                                                 </div>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
+                                                        class="checkbox" id="principaremark">
                                                     <label class="label_report_form">Show Principal's Remarks
                                                         Rank</label>
                                                 </div>
+                                                <p style="font-weight: bold;text-align:left;margin-left:30px">Rank</p>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
-                                                    <label class="label_report_form">Show Overall Student Rank</label>
+                                                        class="checkbox" id="overallstudentrank">
+                                                    <label class=" label_report_form">Show Overall Student
+                                                        Rank</label>
                                                 </div>
                                                 <div style="margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
-                                                    <label class="label_report_form">Show Stream Student Rank</label>
+                                                        class="checkbox" id="streamstudentrank">
+                                                    <label class="label_report_form">Show Stream Student
+                                                        Rank</label>
                                                 </div>
                                             </div>
                                             <div class="col-6" style="margin-top:15px">
@@ -1518,32 +1529,35 @@ td {
                                                     <input placeholder="Select date" type="date" id="example"
                                                         class="form-control">
                                                 </div>
-                                                <p style="text-align: left;margin-top:20px"> Signatures: </p>
+                                                <p
+                                                    style="text-align: left;margin-top:20px;margin-left:30px;font-weight:bold">
+                                                    Signatures: </p>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
+                                                        class="checkbox" id="classteachersig">
                                                     <label class="label_report_form">Show Class Teacher's
                                                         Signatures</label>
                                                 </div>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
+                                                        class="checkbox" id="principalsig">
                                                     <label class="label_report_form">Show Principal's Signatures</label>
                                                 </div>
                                                 <div style="display: -webkit-box;margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
+                                                        class="checkbox" id="parentsig">
                                                     <label class="label_report_form">Show Parent's signature slot
-                                                        others</label>
+                                                    </label>
                                                 </div>
+                                                <p style="font-weight: bold;text-align:left;margin-left:30px">Others</p>
                                                 <div style="margin-left:30px">
                                                     <input type="checkbox"
                                                         style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                        class="checkbox">
-                                                    <label class="label_report_form">Show Crednetials</label>
+                                                        class="checkbox" id="credential">
+                                                    <label class="label_report_form">Show Credentials</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -1551,7 +1565,8 @@ td {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12" id="student_card_panel" style="background-color: white;padding-top:30px">
+                        <div class="col-12" id="student_card_panel"
+                            style="background-color: white;padding-top:30px;display:none">
                             <div class="col-12">
                                 <div>
                                     <div class="dropdown">
@@ -1573,7 +1588,7 @@ td {
                                             </button>
                                         </div>
                                     </div>
-                                    <button class="btn btn-secondary" onclick="fnPrintReport_new_more(event)"
+                                    <button class="btn btn-secondary" onclick="fnPrintReport_StudentCard(event)"
                                         style="margin-right:30px;float:right;;font-size:16px;background-color:#32446B"
                                         type="button" aria-haspopup="true" aria-expanded="false">
                                         Print Format
@@ -1583,6 +1598,8 @@ td {
                             <div class="container insert_container" style="margin-top:50px">
                             </div>
                         </div>
+                    </div>
+                    <div class="container insert_container" id='printing_card_panel' style="padding:30px;display:none">
                     </div>
                 </div>
             </div>
@@ -1975,7 +1992,189 @@ td {
             </div>
 
             <div class="tab-pane fade" id="transcripts">
+                <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
+                    <div class="row">
+                        <div class="col-12" style="padding:0px 20px">
+                            <h4 style="text-align: left;margin-left:20px;float:left">Transcripts </h4>
+                            <icon class="up_arrow_transcripts">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </icon>
+                            <icon class="down_arrow_transcripts">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </icon>
 
+                        </div>
+
+                    </div>
+                    <hr style="margin:0px 20px">
+                    <div class="row" id="transcripts_first" style="margin-top:15px">
+                        <div class="col-md-6" style="padding:0px 40px">
+                            <div class="form-group">
+                                <label for="select-form" style="float:left;font-weight:bold">Form</label>
+                                <select name="select-form"
+                                    style="font-size:16px;background-color:white !important;color:black;"
+                                    id="select_form_transcripts" class="form-control" data-placeholder="Select Form"
+                                    required>
+                                    <option value="">Select Form</option>
+                                    @foreach($form as $val)
+                                    <option value={{$val->id}}>{{$val->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding:0px 40px">
+                            <div class="form-group">
+                                <label for="select-stream" style="float:left;font-weight:bold">Stream</label>
+                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
+                                    id="select_stream_transcripts" class="form-control"
+                                    data-placeholder="Select Stream(Optional)" required>
+                                    <option>Select Stream</option>
+                                </select>
+                                <button type="button" id="get_report_form" class="btn btn-primary"
+                                    style="float:right;margin-top:30px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
+                                    Transcripts
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" id="transcripts_panel"
+                    style="font-family: Arial, Helvetica, sans-serif;margin-top:30px;background-color:white;padding:13px 30px 0px;">
+                    <div class="row ">
+                        <div class="col-12" id="spin-div-transcripts">
+                        </div>
+                        <div class="col-12" id="option-div-transcripts">
+                            <h4 style="text-align: left;margin-left:20px;float:left">Options </h4>
+                            <icon class="up_arrow_option-div-transcripts">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </icon>
+                            <icon class="down_arrow_option-div-transcripts">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
+                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                </svg>
+                            </icon>
+                        </div>
+                        <div class="col-12">
+                            <hr style="margin:0px 20px">
+                        </div>
+                        <div class="col-12" id="option-transcripts-panel" style="background-color: white">
+                            <div class="container" style="margin-top:50px">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div style="display: -webkit-box;margin-left:30px">
+                                            <input type="checkbox"
+                                                style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                class="checkbox" id="principaremark">
+                                            <label class="label_report_form">Show Marks/points</label>
+                                        </div>
+                                        <div style="display: -webkit-box;margin-left:30px">
+                                            <input type="checkbox"
+                                                style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                class="checkbox" id="principaremark">
+                                            <label class="label_report_form">Show student's Rank
+                                            </label>
+                                        </div>
+                                        <div style="display: -webkit-box;margin-left:30px">
+                                            <input type="checkbox"
+                                                style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
+                                                class="checkbox" id="principaremark">
+                                            <label class="label_report_form">Show Garade description</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12" id="student_card_panel"
+                                    style="background-color: white;padding-top:30px">
+                                    <div class="col-12">
+                                        <div>
+                                            <button class="btn btn-secondary" onclick="fnPrintReport_StudentCard(event)"
+                                                style="margin-right:30px;float:right;;font-size:16px;background-color:#32446B"
+                                                type="button" aria-haspopup="true" aria-expanded="false">
+                                                Print
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 insert_container" style="margin-top:50px">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img style="display:inline-block;border-radius:5px;margin-bottom:20px"
+                                                    src="{{asset('assets/images/avatar_blue.png')}}" style="float:left"
+                                                    width="150" height="150">
+                                                <p>NAME:Peter Kinyanuji</p>
+                                                <p>ADMISSION NUMBER:1908</p>
+                                                <p>CURRENT Form:2 East</p>
+                                                <p>KCPE SCORE:218</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <h1>BIBRIRIO HIGH SCHOOL-LIMUR</h1>
+                                                <p>Academic Transcripts</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <img src="{{asset('assets/images/school.png')}}"
+                                                    style="padding-top:40px;margin-bottom:20px" width="150"
+                                                    height="150">
+                                                <p>553Limuru</p>
+                                                <p>00</p>
+                                                <p>bibrioniboyz@gmail.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="padding:20px 150px">
+                                            <div class="col-12">
+                                                <table class="table table-bordered table-sqqured">
+                                                    <tr>
+                                                        <td rowspan="2">subject</td>
+                                                        <td colspan="3" style="text-align: center;">Form 1</td>
+                                                        <td style="text-align: center;">Form 2</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align: center;">Term 1</td>
+                                                        <td style=" text-align: center;">Term 2</td>
+                                                        <td style="text-align: center;">Term 3</td>
+                                                        <td style="text-align: center;">Term 1</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class=" container insert_container" id='printing_card_panel' style="padding:30px;display:none">
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="leaving-certificates">
 
@@ -1987,4 +2186,5 @@ td {
 @include('partials.js.class_list')
 @include('partials.js.group_index')
 @include('partials.js.report_forms')
+@include('partials.js.transcripts')
 @endsection

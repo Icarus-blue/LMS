@@ -14,7 +14,45 @@ $(".down_arrow_report_form").on("click", () => {
     $("#report_form_first").show(300)
 })
 
+const downloadTemplate = () => {
+    $.ajax({
+        xhrFields: {
+            responseType: 'blob',
+        },
+        type: 'get',
+        url: "{{route('download_template_excel')}}",
+        data: {
 
+        },
+        success: function(result, status, xhr) {
+
+            var disposition = xhr.getResponseHeader('content-disposition');
+            var matches = /"([^"]*)"/.exec(disposition);
+            var filename = (matches != null && matches[1] ? matches[1] : 'template.xlsx');
+
+            // The actual download
+            var blob = new Blob([result], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+
+            document.body.appendChild(link);
+
+            link.click();
+            document.body.removeChild(link);
+        }
+    });
+}
+
+function generateData() {
+    var data = [];
+    for (var i = 1; i <= 4; i++) {
+        data.push(Math.floor(Math.random() * 100));
+    }
+    return data;
+}
 $(".up_arrow_option_div").hide()
 $(".down_arrow_option_div").show()
 $("#option-panel").hide()
@@ -49,6 +87,23 @@ $("#select_form_report_form").on("click", (e) => {
     }
 })
 
+function check_biger(data) {
+    if (Number(data) < 0) {
+        return ` <icon style="float:right;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width:18px;height:25px" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 16 16" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.8000000000000009,0,0,0.8000000000000009,1.5999999999999917,1.5999999999999917)"><path fill="#dd790b" d="m9 16 4-7h-3V0H3l2 3h2v6H4z" data-original="#444444" class=""></path></g></svg>
+                                                                </icon>`;
+    } else if (Number(data) > 0) {
+        return `<icon style="float:right;">
+        <svg xmlns="http://www.w3.org/2000/svg" style='width:20px;height:25px' version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 16 16" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(0.8000000000000009,-9.797174393178837e-17,-9.797174393178837e-17,-0.8000000000000009,1.5999999999999925,14.400000000000006)"><path fill="#056b08" d="m9 16 4-7h-3V0H3l2 3h2v6H4z" data-original="#444444" class=""></path></g></svg>
+                                                                </icon>`;
+    } else {
+        return `<icon style="float:right;">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 32 32" style="enable-background:new 0 0 512 512;width:15px;height:25px" xml:space="preserve" class=""><g transform="matrix(0.9299999999999996,0,0,0.9299999999999996,1.1224774932861408,1.1204790496826256)"><path fill="#38a9ff" d="m29.778 15.293-9.071-9.071A1.01 1.01 0 0 0 19 6.929V11H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h16v4.071q.18.978 1 1a.999.999 0 0 0 .707-.293l9.071-9.071a1 1 0 0 0 0-1.414z" data-name="01 Right" data-original="#ff3c38" class=""></path></g></svg>
+                                                                </icon>`;
+    }
+}
+
+
 $("#select_stream_report_form").on("click", (e) => {
     stream_id = e.target.value;
     if (stream_id != "") {
@@ -80,15 +135,17 @@ $("#get_report_form").on("click", () => {
         form_id: form_id
     }, (res) => {
         res = JSON.parse(res);
-        console.log(res.data);
+        $("#student_card_panel").show();
         showDataOn(res.data);
     })
 })
 
 const showDataOn = (data) => {
     str = "";
+    i = 0;
     for (studentdata of data) {
-        str += ` <div class="row">
+        str +=
+            ` <div class="row">
                                     <div class="col-12">
                                         <div class="row" style="border-bottom:1px solid green;padding-bottom:15px">
                                             <div class="col-9">
@@ -106,8 +163,8 @@ const showDataOn = (data) => {
                                                 </p>
                                             </div>
                                             <div class="col-3">
-                                                <img src="{{asset('assets/images/school.png')}}" style="float:left"
-                                                    width="250" height="150">
+                                                <img src="{{asset('assets/images/school.png')}}" style="padding-top:40px"
+                                                    width="150" height="150">
                                             </div>
                                         </div>
                                         <div class="row" style="margin-top:20px">
@@ -118,41 +175,49 @@ const showDataOn = (data) => {
                                                         <img style="display:inline-block;border-radius:5px"
                                                             src="{{asset('assets/images/avatar_blue.png')}}"
                                                             style="float:left" width="150" height="150">
-                                                        <p style="text-align:left;margin-left:40px;font-size:16px">NAME:${studentdata.name}</p>
-                                                        <p style="text-align:left;margin-left:40px;font-size:16px">ADMNO:${studentdata.admno}</p>
-                                                        <p style="text-align:left;margin-left:40px;font-size:16px">${studentdata.stream_name}</p>
+                                                        <p style="text-align:left;margin-left:40px;font-size:14px;margin-top:20px;font-weight:bold">NAME:${studentdata.name}</p>
+                                                        <p style="text-align:left;margin-left:40px;font-size:14px;font-weight:bold">ADMNO:${studentdata.admno}</p>
+                                                        <p style="text-align:left;margin-left:40px;font-size:14px;font-weight:bold">${studentdata.stream_name}</p>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="row">
                                                             <div class="col-6">
                                                                 <div>
-                                                                    <p style="font-size:16px">Total Marks</p>
+                                                                    <p style="font-size:16px;font-weight:bold">Total Marks</p>
                                                                     <p style="font-size:20px"><span style="color:green">${studentdata.Total_got_marks}</span>/${studentdata.current_total_maxmarks}</p>
-                                                                    <p style="font-size:16px">${studentdata.deviation_marks}</p>
-                                                                </div>
+                                                                    <p style="font-size:16px;font-weight:bold">${studentdata.deviation_marks}`
+        let middlepart = check_biger(studentdata.deviation_marks);
+        str += middlepart +
+            `</p></div>
                                                                 <div>
-                                                                    <p style="font-size:16px">Total Points</p>
+                                                                    <p style="font-size:16px;font-weight:bold">Total Points</p>
                                                                     <p style="font-size:20px"><span style="color:green">${studentdata.totalpoint}</span>/84</p>
-                                                                    <p style="font-size:16px">${studentdata.dev_point}</p>
+                                                                    <p style="font-size:16px;font-weight:bold">${studentdata.dev_point}`
+        let middlepart0 = check_biger(studentdata.dev_point);
+        str += middlepart0 + `</p>
                                                                 </div>
-                                                                <div>
-                                                                    <p style="font-size:16px">Overall Position</p>
+                                                                <div class="overpos" style="display:none">
+                                                                    <p style="font-size:16px;font-weight:bold">Overall Position</p>
                                                                     <p style="font-size:20px"><span style="color:green">${studentdata.over_order}</span>/${studentdata.total_memeber_form}</p>
-                                                                    <p style="font-size:16px">2</p>
+                                                                    <p style="font-size:16px;font-weight:bold">2`
+        let middlepart1 = check_biger(2);
+        str += middlepart1 + `</p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div>
-                                                                    <p style="font-size:16px">Mean Marks</p>
+                                                                    <p style="font-size:16px;font-weight:bold">Mean Marks</p>
                                                                     <p style="font-size:20px;color:green">60%</p>
-                                                                    <p style="font-size:16px">5.2</p>
+                                                                    <p style="font-size:16px;font-weight:bold">5.2`
+        let middlepart2 = check_biger(5.2);
+        str += middlepart2 + `</p>
                                                                 </div>
                                                                 <div>
-                                                                    <p style="font-size:16px">Mean Grade</p>
+                                                                    <p style="font-size:16px;font-weight:bold">Mean Grade</p>
                                                                     <p style="font-size:20px">${studentdata.meangrade}</p>
                                                                 </div>
-                                                                <div>
-                                                                    <p style="font-size:16px">Stream Position</p>
+                                                                <div class="streampos" style="display:none">
+                                                                    <p style="font-size:16px;font-weight:bold">Stream Position</p>
                                                                     <p style="font-size:20px"><span style="color:green">${studentdata.streamorder}</span>/${studentdata.total_member_stream}</p>
                                                                 </div>
                                                             </div>
@@ -163,7 +228,7 @@ const showDataOn = (data) => {
                                             <div class="col-6">
                                                 <p>
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        style="margin-left:220px;float:left;margin-top:3px" width="16"
+                                                        style="margin-left:100px;float:left;margin-top:3px" width="16"
                                                         height="16" fill="currentColor" class="bi bi-bar-chart-steps"
                                                         viewBox="0 0 16 16">
                                                         <path
@@ -173,7 +238,7 @@ const showDataOn = (data) => {
                                                     Subject Performance - Student vs Class
                                                 </p>
                                                 <div>
-                                                    <canvas id="subject_performance" style="display: inline;"></canvas>
+                                                    <canvas id="subject_performance${i}" style="display: inline;"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,51 +258,294 @@ const showDataOn = (data) => {
                                                     </thead>
                                                     <tbody>`
         for (eachtable of studentdata.tabledata) {
-            str += `<tr><td>${eachtable.subjectName}</td><td>${eachtable.mark}</td><td>${eachtable.dev}</td><td>${eachtable.grade}</td>
+            str += `<tr><td>${eachtable.subjectName}</td><td>${eachtable.mark}</td><td>${eachtable.dev}`
+            let middlepart3 = check_biger(Number(eachtable.dev));
+            str += middlepart3 + `
+            </td><td>${eachtable.grade}</td>
             <td>${eachtable.rank}</td><td>${eachtable.comment}</td><td>${eachtable.teachername}</td></tr>`
         }
         str += ` </tbody>
                                                 </table>
                                             </div>
-                                            <div class="col-12" style="margin-top:20px">
+                                            <div class="col-12" style="margin-top:20px;margin-bottom:40px">
                                                 <p style="text-align: left;">Muinui Simon Ndimi's Performance Over Time
                                                 </p>
-                                                <div>
-                                                    <canvas id="performance_overtime">
+                                                <div class="col-7">
+                                                    <canvas id="performance_overtime${i}" >
                                                 </div>
                                             </div>
-                                            <div class="col-12" id="class_teacher_remark">
+                                            <div class="col-12 " style="margin-bottom:40px">
                                                 <div style=" display: flex;  justify-content: space-between;">
-                                                    <div style=" margin-right: auto;font-weight:bold">Class Teacher
+                                                    <div style=" margin-right: auto;font-weight:bold" >Class Teacher
                                                         Remarks - Maina</div>
-                                                    <div style="margin-left: auto;font-weight:bold">Signature</div>
+                                                    <div style="margin-left: auto;font-weight:bold" >Signature</div>
                                                 </div>
-                                                <p style="text-align: left;">Aim higher, you are capable of doing much
+                                                <p style="text-align: left;display:none"  class="class_teacher_remark">Aim higher, you are capable of doing much
                                                 </p>
                                             </div>
-                                            <div class="col-12" id="principal_remark">
+                                            <div class="col-12 " style="margin-bottom:40px">
                                                 <div style=" display: flex;  justify-content: space-between;">
-                                                    <div style=" margin-right: auto;font-weight:bold">Principal's
+                                                    <div style=" margin-right: auto;font-weight:bold" >Principal's
                                                         Remarks - Mr.Marcheria</div>
-                                                    <div style="margin-left: auto;font-weight:bold">Signature</div>
+                                                    <div style="margin-left: auto;font-weight:bold;">Signature</div>
                                                 </div>
-                                                <p style="text-align: left;">Good work but aim higher, you have the
+                                                <p style="text-align: left;display:none" class="principal_remark">Good work but aim higher, you have the
                                                     potential to do better</p>
                                             </div>
-                                            <div class="col-12" style="margin-top:20px">
+                                            <div class="col-12" style="margin-top:20px;margin-bottom:40px">
                                                 <p style="font-weight:bold">Download Zeraki Analytics for detailed
                                                     academic report and
                                                     Zeraki Learning to improve your child's grades.
                                                     Zeraki Analytics and Learning Username:1205@bibirionihigh
                                                 </p>
-                                                <div style="margin-top:100px;text-align:right">
+                                                <div style="margin-top:100px;text-align:right;display:none" class="parentsig">
                                                     <p>Parent's Signature:.......................</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>`;
+        i++;
     }
+
     $(".insert_container").append(str);
+    i = 0;
+    for (studentdata of data) {
+        var canvas = document.getElementById("subject_performance" + i);
+        // Create a new chart object
+
+        var chart = new Chart(canvas, {
+            type: "line",
+            data: {
+                labels: studentdata.subjectNameArr,
+                datasets: [{
+                    label: "Grades",
+                    data: studentdata.subjectMarkArr,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "rgba(75,192,192,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(75,192,192,1)",
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Grades for English and Mathematics"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        i++;
+    }
+
+    j = 0;
+    for (studentdata of data) {
+        // Data for the chart
+        var data = {
+            labels: ['Form 1,Term 1,2022', 'Form 1,Term 2,2022', 'Form 1,Term 3,2022', 'Form 2,Term 1,2023'],
+            datasets: [{
+                label: 'Data',
+                data: generateData(),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                barThickness: 60
+            }]
+        };
+
+        // Options for the chart
+        var options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            }
+        };
+        var ctx = document.getElementById('performance_overtime' + j).getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+        j++
+    }
+
+}
+
+var toggleCheckbox = document.getElementById('classteacherremark');
+var toggleableElement = document.getElementsByClassName('class_teacher_remark');
+if (toggleableElement) {
+    toggleCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement.length; index++) {
+                const element = toggleableElement[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement.length; index++) {
+                const element = toggleableElement[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+var toggleCheckbox1 = document.getElementById('principaremark');
+var toggleableElement1 = document.getElementsByClassName('principal_remark');
+if (toggleableElement1) {
+    toggleCheckbox1.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement1.length; index++) {
+                const element = toggleableElement1[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement1.length; index++) {
+                const element = toggleableElement1[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+var toggleCheckbox2 = document.getElementById('classteachersig');
+var toggleableElement2 = document.getElementsByClassName('class_teacher_sig');
+if (toggleableElement2) {
+    toggleCheckbox2.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement2.length; index++) {
+                const element = toggleableElement2[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement2.length; index++) {
+                const element = toggleableElement2[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+var toggleCheckbox3 = document.getElementById('principalsig');
+var toggleableElement3 = document.getElementsByClassName('principal_sig');
+if (toggleableElement3) {
+    toggleCheckbox3.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement3.length; index++) {
+                const element = toggleableElement3[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement3.length; index++) {
+                const element = toggleableElement3[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+var toggleCheckbox4 = document.getElementById('parentsig');
+var toggleableElement4 = document.getElementsByClassName('parentsig');
+if (toggleableElement4) {
+    toggleCheckbox4.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement4.length; index++) {
+                const element = toggleableElement4[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement4.length; index++) {
+                const element = toggleableElement4[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+var toggleCheckbox5 = document.getElementById('overallstudentrank');
+var toggleableElement5 = document.getElementsByClassName('overpos');
+if (toggleableElement5) {
+    toggleCheckbox5.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement5.length; index++) {
+                const element = toggleableElement5[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement5.length; index++) {
+                const element = toggleableElement5[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+var toggleCheckbox6 = document.getElementById('streamstudentrank');
+var toggleableElement6 = document.getElementsByClassName('streampos');
+if (toggleableElement6) {
+    toggleCheckbox6.addEventListener('change', function() {
+        if (this.checked) {
+            for (let index = 0; index < toggleableElement6.length; index++) {
+                const element = toggleableElement6[index];
+                element.style.display = 'block';
+
+            }
+        } else {
+            for (let index = 0; index < toggleableElement6.length; index++) {
+                const element = toggleableElement6[index];
+                element.style.display = 'none';
+
+            }
+        }
+    });
+}
+
+function fnPrintReport_StudentCard(e) {
+    e.preventDefault();
+    var mywindow = window.open('', 'PRINT', 'height=800,width=1024');
+    mywindow.document.write('<html><head><title>' + " " + '</title>');
+    // mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+    mywindow.document.write(
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">'
+    );
+    mywindow.document.write('</head><body >');
+    // mywindow.document.write('<h1>' + document.title  + '</h1>');
+    mywindow.document.write(document.getElementById('printing_card_panel').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    // mywindow.close();
+    return true;
 }
 </script>

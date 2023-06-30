@@ -198,6 +198,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('custom_excel_download', 'PrintOutsController@custom_excel_download')->name('custom_excel_download');
         Route::get('download_class_list_pdf', 'PrintOutsController@download_class_list_pdf')->name('download_class_list_pdf');
         Route::get('download_metalist_excel', 'PrintOutsController@download_metalist_excel')->name('download_metalist_excel');
+        Route::get('download_template_excel', 'PrintOutsController@download_template_excel')->name('download_template_excel');
         Route::get('download_classlist_excel', 'PrintOutsController@download_classlist_excel')->name('download_classlist_excel');
         Route::post('adding_metalist_table', 'PrintOutsController@adding_metalist_table')->name('adding_metalist_table');
         Route::post('get_stream_according_to_form', 'PrintOutsController@get_stream_value_by_form');

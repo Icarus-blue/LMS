@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SupportTeam;
 use App\Exports\ExportMetalist;
 use App\Exports\Exportclasslist;
 use App\Exports\ExportCustomExcel;
+use App\Exports\ExportTemplate;
 use App\Helpers\Qs;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepo;
@@ -885,13 +886,18 @@ class PrintOutsController extends Controller
                 }
             }
             $tabledata = [];
+            $subjectNameArr = [];
+            $subjectMarkArr = [];
             foreach ($empty_arr as $subject) {
+               $subjectName =  $this->exam->getsubjectName($subject)->title;
+               array_push($subjectNameArr,$subjectName );
                 foreach ($subjects_student as $entity) {
                     if ($subject === $entity->af) {
                         $subjectName = $this->exam->subject_name($subject)->title;
                         $preexamarrr = $this->exam->getArray($subject, $student_id, intval($exam_id) - 1);
                         $mark_pre =  intval($preexamarrr->pos) / intval($preexamarrr->p_comment);
                         $mark =  intval($entity->pos) / intval($entity->p_comment);
+                        array_push($subjectMarkArr,$entity->pos);
                         $grades = $entity->class_type->grades;
                         $grade_name = "";
                         foreach ($grades as $key => $grade) {
@@ -936,7 +942,9 @@ class PrintOutsController extends Controller
                 "streamorder" => $stream_order,
                 "total_memeber_form" => count($oneDArray),
                 "total_member_stream" => count($streamArray),
-                "tabledata" => $tabledata
+                "tabledata" => $tabledata,
+                "subjectNameArr"=>$subjectNameArr,
+                "subjectMarkArr" =>$subjectMarkArr
             ];
 
             array_push($arranged_stu_arr,  $data);
@@ -1093,11 +1101,15 @@ class PrintOutsController extends Controller
         $this->exam->create_metalist($new_arr);
     }
 
-    // public function download_metalist_excel(Request $req)
-    // {
-    //     return Excel::download(new ExportMetalist($req["exam_id"], $req["stream_id"]), 'users.xlsx');
-    // }
+    public function download_metalist_excel(Request $req)
+    {
+        return Excel::download(new ExportMetalist($req["exam_id"], $req["stream_id"]), 'users.xlsx');
+    }
 
+    public function download_template_excel(Request $req)
+    {
+        return Excel::download(new ExportTemplate(), 'Tempalte.xlsx');
+    }
 
     public function download_classlist_excel(Request $req)
     {
