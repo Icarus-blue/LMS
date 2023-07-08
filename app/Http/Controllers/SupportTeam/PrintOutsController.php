@@ -889,15 +889,15 @@ class PrintOutsController extends Controller
             $subjectNameArr = [];
             $subjectMarkArr = [];
             foreach ($empty_arr as $subject) {
-               $subjectName =  $this->exam->getsubjectName($subject)->title;
-               array_push($subjectNameArr,$subjectName );
+                $subjectName =  $this->exam->getsubjectName($subject)->title;
+                array_push($subjectNameArr, $subjectName);
                 foreach ($subjects_student as $entity) {
                     if ($subject === $entity->af) {
                         $subjectName = $this->exam->subject_name($subject)->title;
                         $preexamarrr = $this->exam->getArray($subject, $student_id, intval($exam_id) - 1);
                         $mark_pre =  intval($preexamarrr->pos) / intval($preexamarrr->p_comment);
                         $mark =  intval($entity->pos) / intval($entity->p_comment);
-                        array_push($subjectMarkArr,$entity->pos);
+                        array_push($subjectMarkArr, $entity->pos);
                         $grades = $entity->class_type->grades;
                         $grade_name = "";
                         foreach ($grades as $key => $grade) {
@@ -943,10 +943,43 @@ class PrintOutsController extends Controller
                 "total_memeber_form" => count($oneDArray),
                 "total_member_stream" => count($streamArray),
                 "tabledata" => $tabledata,
-                "subjectNameArr"=>$subjectNameArr,
-                "subjectMarkArr" =>$subjectMarkArr
+                "subjectNameArr" => $subjectNameArr,
+                "subjectMarkArr" => $subjectMarkArr
             ];
 
+            array_push($arranged_stu_arr,  $data);
+        }
+        return json_encode(["data" => $arranged_stu_arr]);
+    }
+
+    public function get_meta_data_for_transcripts(Request $req)
+    {
+        $stream_id = $req['stream_id'];
+        $form_id = $req['form_id'];
+        $stream_name = $this->my_class->get_stream_name($stream_id)->stream;
+        $students = $this->my_class->get_studenst($stream_id);
+        $arranged_stu_arr = [];
+        foreach ($students as $eachstudent) {
+            $score_each_stu = $this->exam->get_score_each_stu($eachstudent->id);
+            $sub_arr = [];
+            foreach ($score_each_stu  as $val) {
+                if (!$this->check_subject_id($sub_arr, $val->af)) {
+                    continue;
+                } else {
+                    array_push($sub_arr, $val->af);
+                }
+            }
+            $subjectname_arr = [];
+            foreach( $sub_arr as $val){
+                array_push($subjectname_arr,$this->exam->getsubjectName($val)->title);
+            }
+            $data = [
+                "admno" => $eachstudent->adm_no,
+                "name" => $eachstudent->user->name,
+                "currentform" =>  $form_id . " " . $stream_name,
+                "kcpe" =>$eachstudent->kcpe,
+                "subjectname"=>$subjectname_arr
+            ];
             array_push($arranged_stu_arr,  $data);
         }
         return json_encode(["data" => $arranged_stu_arr]);

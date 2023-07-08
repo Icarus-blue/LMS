@@ -204,6 +204,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('get_stream_according_to_form', 'PrintOutsController@get_stream_value_by_form');
         Route::post('get_meta_list', 'PrintOutsController@get_meta_list');
         Route::post('get_meta_data_for_report_form', 'PrintOutsController@get_meta_data_for_report_form');
+        Route::post('get_meta_data_for_transcripts', 'PrintOutsController@get_meta_data_for_transcripts');
         Route::post('get_analysis_data', 'PrintOutsController@get_analysis_data');
         Route::get('shop', 'ShopController@index')->name('shop');
         Route::get('opportunities', 'OpportunitiesController@index')->name('opportunities');

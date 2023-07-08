@@ -68,6 +68,10 @@ class ExamRepo
         return  Subject::where("id",$subject_id)->first();
     }
 
+    public function get_score_each_stu($id){
+        return  ExamRecord::where('student_id',$id)->get();
+    }
+
     public function exam_records($exam_id, $my_class_id)
     {
         return ExamRecord::where(['exam_id' => $exam_id, 'my_class_id' => $my_class_id])->get();

@@ -205,8 +205,31 @@ td {
             <li class="nav-item"><a href="#report-forms" class="nav-link" data-toggle="tab">Report Forms</a></li>
             <li class="nav-item"><a href="#merit-lists" class="nav-link" data-toggle="tab">Merit Lists</a></li>
             <li class="nav-item"><a href="#transcripts" class="nav-link" data-toggle="tab">Transcripts</a></li>
-            <li class="nav-item"><a href="#leaving-certificates" class="nav-link" data-toggle="tab">Leaving
-                    Certificates</a></li>
+            <li class="nav-item"> <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
+                    style="background-color:green;color:white;margin-top:7px;font-size:16px"><svg
+                        xmlns="http://www.w3.org/2000/svg" style="float:left;margin-top:5px;margin-right:20px"
+                        width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    </svg> More</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item nav-link" data-toggle="tab" href="#leavingcertificate"><svg
+                            xmlns="http://www.w3.org/2000/svg" style="margin-right:7px" width="16" height="16"
+                            fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                            <path
+                                d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z" />
+                        </svg>Leaving Certificate</a>
+                    <a class="dropdown-item nav-link" data-toggle="tab" href="#houselist"><svg
+                            xmlns="http://www.w3.org/2000/svg" style="margin-right:7px" width="16" height="16"
+                            fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                            <path
+                                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                        </svg>House List</a>
+                </div>
+            </li>
         </ul>
         <div class="tab-content " style="background-color: initial;margin:50px 10px">
             <div class="tab-pane fade show active" id="class-lists" style="padding:20px;">
@@ -1599,7 +1622,7 @@ td {
                             </div>
                         </div>
                     </div>
-                    <div class="container insert_container" id='printing_card_panel' style="padding:30px;display:none">
+                    <div class="container" id='printing_card_panel' style="padding:30px;display:none">
                     </div>
                 </div>
             </div>
@@ -2044,7 +2067,7 @@ td {
                                     data-placeholder="Select Stream(Optional)" required>
                                     <option>Select Stream</option>
                                 </select>
-                                <button type="button" id="get_report_form" class="btn btn-primary"
+                                <button type="button" id="get_transcripts" class="btn btn-primary"
                                     style="float:right;margin-top:30px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
                                     Transcripts
                                 </button>
@@ -2090,20 +2113,20 @@ td {
                                         <div style="display: -webkit-box;margin-left:30px">
                                             <input type="checkbox"
                                                 style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                class="checkbox" id="principaremark">
+                                                class="checkbox" id="showmark">
                                             <label class="label_report_form">Show Marks/points</label>
                                         </div>
                                         <div style="display: -webkit-box;margin-left:30px">
                                             <input type="checkbox"
                                                 style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                class="checkbox" id="principaremark">
+                                                class="checkbox" id="showrank">
                                             <label class="label_report_form">Show student's Rank
                                             </label>
                                         </div>
                                         <div style="display: -webkit-box;margin-left:30px">
                                             <input type="checkbox"
                                                 style="margin-left:0px;float:left;margin-top:4px;width:20px;height:20px"
-                                                class="checkbox" id="principaremark">
+                                                class="checkbox" id="showdesc">
                                             <label class="label_report_form">Show Garade description</label>
                                         </div>
                                     </div>
@@ -2111,73 +2134,37 @@ td {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 transcript_panel" id="trans_show_panel" style="display: none;">
                             <div class="row">
-                                <div class="col-12" id="student_card_panel"
-                                    style="background-color: white;padding-top:30px">
+                                <div class="col-12" style="background-color: white;padding-top:30px">
                                     <div class="col-12">
                                         <div>
-                                            <button class="btn btn-secondary" onclick="fnPrintReport_StudentCard(event)"
+                                            <button class="btn btn-secondary" onclick="fnPrintReport_Transcript(event)"
                                                 style="margin-right:30px;float:right;;font-size:16px;background-color:#32446B"
                                                 type="button" aria-haspopup="true" aria-expanded="false">
                                                 Print
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-12 insert_container" style="margin-top:50px">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <img style="display:inline-block;border-radius:5px;margin-bottom:20px"
-                                                    src="{{asset('assets/images/avatar_blue.png')}}" style="float:left"
-                                                    width="150" height="150">
-                                                <p>NAME:Peter Kinyanuji</p>
-                                                <p>ADMISSION NUMBER:1908</p>
-                                                <p>CURRENT Form:2 East</p>
-                                                <p>KCPE SCORE:218</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <h1>BIBRIRIO HIGH SCHOOL-LIMUR</h1>
-                                                <p>Academic Transcripts</p>
-                                            </div>
-                                            <div class="col-4">
-                                                <img src="{{asset('assets/images/school.png')}}"
-                                                    style="padding-top:40px;margin-bottom:20px" width="150"
-                                                    height="150">
-                                                <p>553Limuru</p>
-                                                <p>00</p>
-                                                <p>bibrioniboyz@gmail.com</p>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="padding:20px 150px">
-                                            <div class="col-12">
-                                                <table class="table table-bordered table-sqqured">
-                                                    <tr>
-                                                        <td rowspan="2">subject</td>
-                                                        <td colspan="3" style="text-align: center;">Form 1</td>
-                                                        <td style="text-align: center;">Form 2</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align: center;">Term 1</td>
-                                                        <td style=" text-align: center;">Term 2</td>
-                                                        <td style="text-align: center;">Term 3</td>
-                                                        <td style="text-align: center;">Term 1</td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class=" container insert_container" id='printing_card_panel' style="padding:30px;display:none">
+                    <div class=" container transcript_panel" id="transcript_printing_panel"
+                        style="padding:30px;display:none">
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="leaving-certificates">
 
+
+            <div class="tab-pane fade" id="leavingcertificate">
+                leaving Certificate
+            </div>
+
+
+            <div class="tab-pane fade" id="houselist">
+                house list
             </div>
         </div>
     </div>
