@@ -3,7 +3,8 @@
 @section('content')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
@@ -16,14 +17,6 @@
 
 .insert_container p {
     line-height: 1;
-}
-
-#studentlist_leave_wrapper {
-    padding: 0px 30px
-}
-
-#studentlist_leave th {
-    font-weight: 100 !important;
 }
 
 .label_report_form {
@@ -73,6 +66,9 @@ label {
 
 th {
     font-size: 15px;
+    font-weight: revert !important;
+    border-right: 1px solid black !important;
+    border-bottom: 1px solid black !important;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -80,6 +76,8 @@ th {
 td {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    border-right: 1px solid black !important;
     text-align: left;
 }
 
@@ -201,41 +199,18 @@ td {
 
 <div class="card" style="font-family:Arial, Helvetica, sans-serif">
 
-    <div class="card-body" style="background-color: #F5F5F5;padding-bottom:580px">
+    <div class="card-body" style="background-color: #F5F5F5">
         <ul class="nav nav-tabs nav-tabs-highlight cardpos" style=" transform:translateX(-22px);">
-            <li class="nav-item"><a href="#class-lists" class="nav-link active" data-toggle="tab">Class Lists</a></li>
+            <li class="nav-item"><a href="#class-lists" class="nav-link " data-toggle="tab">Class Lists</a></li>
             <li class="nav-item"><a href="#analysis-report" class="nav-link" data-toggle="tab">Analysis Report</a></li>
             <li class="nav-item"><a href="#report-forms" class="nav-link" data-toggle="tab">Report Forms</a></li>
             <li class="nav-item"><a href="#merit-lists" class="nav-link" data-toggle="tab">Merit Lists</a></li>
             <li class="nav-item"><a href="#transcripts" class="nav-link" data-toggle="tab">Transcripts</a></li>
-            <li class="nav-item"> <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"
-                    style="background-color:green;color:white;margin-top:7px;font-size:16px"><svg
-                        xmlns="http://www.w3.org/2000/svg" style="float:left;margin-top:5px;margin-right:20px"
-                        width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                    </svg> More</button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item nav-link" data-toggle="tab" href="#leavingcertificate"><svg
-                            xmlns="http://www.w3.org/2000/svg" style="margin-right:7px" width="16" height="16"
-                            fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                            <path
-                                d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z" />
-                        </svg>Leaving Certificate</a>
-                    <a class="dropdown-item nav-link" data-toggle="tab" href="#houselist"><svg
-                            xmlns="http://www.w3.org/2000/svg" style="margin-right:7px" width="16" height="16"
-                            fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                            <path
-                                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
-                        </svg>House List</a>
-                </div>
-            </li>
+            <li class="nav-item"><a href="#leavingcertificate" class="nav-link  active" data-toggle="tab">Leaving
+                    Certificate</a></li>
         </ul>
         <div class="tab-content " style="background-color: initial;margin:50px 10px">
-            <div class="tab-pane fade show active" id="class-lists" style="padding:20px;">
+            <div class="tab-pane fade  " id="class-lists" style="padding:20px;">
                 <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
                     <div class="row">
                         <div class="col-12">
@@ -1397,10 +1372,11 @@ td {
                                         d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
                             </icon>
-                            <hr style="margin:37px -30px 0px -30px">
+
                         </div>
 
                     </div>
+                    <hr style="margin:0px 20px">
                     <div class="row" id="report_form_first" style="margin-top:15px">
                         <div class="col-md-6" style="padding:0px 40px">
                             <div class="form-group">
@@ -1414,9 +1390,6 @@ td {
                                     <option value={{$val->id}}>{{$val->name}}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Form is required.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding:0px 40px">
@@ -1425,22 +1398,19 @@ td {
                                 <select name="select-stream" style="font-size:16px;background-color:white !important;"
                                     id="select_stream_report_form" class="form-control"
                                     data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Stream</option>
+                                    <option>Select Stream</option>
                                 </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
                             </div>
                         </div>
-                        <!-- <div class="col-12">
+                        <div class="col-12">
                             <div class="spinner-square"
                                 style="margin-top:40px;margin-bottom:30px;float:right;margin-right:20px;display:none">
                                 <div class="square-1 square"></div>
                                 <div class="square-2 square"></div>
                                 <div class="square-3 square"></div>
                             </div>
-                        </div> -->
-                        <div class="col-md-12" style="padding:0px 40px" id="exam_area_report_form">
+                        </div>
+                        <div class="col-md-12" style="display:none;padding:0px 40px" id="exam_area_report_form">
                             <div class="form-group">
                                 <label for="select-exam" style="float:left;font-weight:bold">Exam</label>
                                 <select name="select-exam" style="background-color:white !important;font-size:16px"
@@ -1451,11 +1421,8 @@ td {
                                     <option value={{$exam->id}}>{{$exam->name}}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Exam is required.
-                                </div>
                                 <button type="button" id="get_report_form" class="btn btn-primary"
-                                    style="float:right;margin-top:12px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
+                                    style="float:right;margin-top:30px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
                                     Report Forms
                                 </button>
                             </div>
@@ -1488,7 +1455,9 @@ td {
                                         d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
                             </icon>
-                            <hr style="margin:37px -30px 0px -30px">
+                        </div>
+                        <div class="col-12">
+                            <hr style="margin:0px 20px">
                         </div>
                         <div class="col-12" id="option-panel" style="background-color: white">
                             <div class="container" style="margin-top:50px">
@@ -1638,7 +1607,7 @@ td {
 
             <div class=" tab-pane fade" id="merit-lists" style="margin-bottom:30px;margin-top:0px;padding-top:20px">
                 <div class="row">
-                    <div class="col-12" style="background-color:white;padding-top:19px">
+                    <div class="col-12" style="background-color:white;padding-top:35px">
                         <div>
                             <h4 style="text-align: left;margin-left:20px;float:left">
                                 Merit List</h4>
@@ -1663,7 +1632,7 @@ td {
                                 </svg>
                             </icon>
                         </div>
-                        <hr style="margin:37px -10px 0px -10px">
+                        <hr style="margin-top:36px">
                     </div>
 
                     <div class="col-12" style="background-color:white" id="elem_down">
@@ -2048,10 +2017,10 @@ td {
                                         d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
                             </icon>
-                            <hr style="margin:37px -30px 0px -30px">
-                        </div>
 
+                        </div>
                     </div>
+                    <hr style="margin:0px 20px">
                     <div class="row" id="transcripts_first" style="margin-top:15px">
                         <div class="col-md-6" style="padding:0px 40px">
                             <div class="form-group">
@@ -2065,9 +2034,6 @@ td {
                                     <option value={{$val->id}}>{{$val->name}}</option>
                                     @endforeach
                                 </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Form is required.
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6" style="padding:0px 40px">
@@ -2076,11 +2042,8 @@ td {
                                 <select name="select-stream" style="font-size:16px;background-color:white !important;"
                                     id="select_stream_transcripts" class="form-control"
                                     data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Stream</option>
+                                    <option>Select Stream</option>
                                 </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
                                 <button type="button" id="get_transcripts" class="btn btn-primary"
                                     style="float:right;margin-top:30px;margin-bottom:10px;font-size:16px;border-radius:5px;">Get
                                     Transcripts
@@ -2116,9 +2079,10 @@ td {
                                         d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
                                 </svg>
                             </icon>
-                            <hr style="margin:37px -30px 0px -30px">
                         </div>
-
+                        <div class="col-12">
+                            <hr style="margin:0px 20px">
+                        </div>
                         <div class="col-12" id="option-transcripts-panel" style="background-color: white">
                             <div class="container" style="margin-top:50px">
                                 <div class="row">
@@ -2147,38 +2111,23 @@ td {
                                 </div>
                             </div>
                         </div>
-
-
-                    </div>
-
-                </div>
-                <div class="col-12" style="padding-right: 0px;">
-                    <div class="row">
-                        <div class="col-12" style="background-color: whitesmoke;padding-top:30px;padding-right: 0px;">
-                            <div class="col-12">
-                                <div>
-                                    <button class="btn btn-secondary" onclick="fnPrintReport_Transcript(event)"
-                                        style="margin-right:0px;float:right;font-size:16px;background-color:#32446B;padding:0px 10px"
-                                        type="button" aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-download"
-                                            style="float:left;margin-top:5px;margin-right:10px" viewBox="0 0 16 16">
-                                            <path
-                                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                                            <path
-                                                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                                        </svg> Print
-                                    </button>
+                        <div class="col-12 transcript_panel" id="trans_show_panel" style="display: none;">
+                            <div class="row">
+                                <div class="col-12" style="background-color: white;padding-top:30px">
+                                    <div class="col-12">
+                                        <div>
+                                            <button class="btn btn-secondary" onclick="fnPrintReport_Transcript(event)"
+                                                style="margin-right:30px;float:right;;font-size:16px;background-color:#32446B"
+                                                type="button" aria-haspopup="true" aria-expanded="false">
+                                                Print
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 transcript_panel" id="trans_show_panel"
-                        style="display: none;background-color:white;margin-top:20px;padding-top:20px">
 
                     </div>
-                </div>
-                <div class="col-12">
                     <div class=" container transcript_panel" id="transcript_printing_panel"
                         style="padding:30px;display:none">
                     </div>
@@ -2186,165 +2135,191 @@ td {
             </div>
 
 
-            <div class="tab-pane fade" id="leavingcertificate">
-                <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
+            <div class="tab-pane fade show active" id="leavingcertificate">
+                <div class="container" style="background-color:white;padding:20px 20px 0px 20px">
                     <div class="row">
                         <div class="col-12">
-                            <h4 style="text-align: left;margin-left:20px;float:left">Leaving Certificate</h4>
-                            <icon class="up_arrow_leave">
+                            <button type="button" id="get_metalist_meta" class="btn "
+                                onclick="fnPrintReport_Certificate(event)"
+                                style="float:left;margin-bottom:10px;margin-right:20px;font-size:16px;border-radius:5px;background-color:#33436A;color:white">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </icon>
-                            <icon class="down_arrow_leave">
+                                    style="float:left;margin-right:5px;margin-top:4px" width="16" height="16"
+                                    fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                    <path
+                                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                    <path
+                                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                                </svg>Download</button>
+                            <a type="button" href="{{ route('editprofile', ['user_id' => $userdata->id]) }}" class="btn"
+                                style="float:left;margin-bottom:10px;font-size:16px;border-radius:5px;background-color:#33436A;color:white">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
+                                    style="float:left;margin-right:5px;margin-top:4px" width="16" height="16"
+                                    fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                     <path fill-rule="evenodd"
-                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                 </svg>
-                            </icon>
-                            <hr style="margin:37px -20px 0px -20px">
-                        </div>
-                    </div>
-                    <div class="row" id="leave_certificate" style="margin-top:15px">
-                        <div class="col-md-6" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-form" style="float:left;font-weight:bold">Form</label>
-                                <select name="select-form"
-                                    style="font-size:16px;background-color:white !important;color:black;"
-                                    id="select_form_leave" class="form-control" data-placeholder="Select Form" required>
-                                    <option value="">Select Form</option>
-                                    @foreach($form as $val)
-                                    <option value={{$val->id}}>{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Form is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-stream" style="float:left;font-weight:bold">Stream</label>
-                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
-                                    id="select_stream_leave" class="form-control"
-                                    data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Stream</option>
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
-                                <button type="button" id="search_certificate" class="btn btn-primary"
-                                    style="float:right;margin-top:10px;margin-bottom:10px;font-size:16px;border-radius:5px;">Search
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin:30px 0px;background-color:white">
-                    <div class="col-12" id="studentlist_panel" style="display: none">
-                        <p style="font-size:20px;text-align:left;margin:15px">Student List</p>
-                        <table id="studentlist_leave" class="table table-bordered table-striped"
-                            style="font-size: 14px;padding:20px">
-                            <!-- <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Adm No</th>
-                                        <th>Name</th>
-                                        <th>Stream</th>
-                                        <th>Action </th>
-                                    </tr>
-                                </thead>
-                                <tbody id="studentlist_leave">
-
-                                </tbody> -->
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="tab-pane fade" id="houselist">
-                <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4 style="text-align: left;margin-left:20px;float:left">House List</h4>
-                            <icon class="up_arrow_leave">
+                                Edit</a>
+                            <a href="{{ route('reverse', ['form_id' => 2,'stream_id'=>80]) }}" type=" button"
+                                id="get_metalist_meta" class="btn "
+                                style="float:right;margin-bottom:10px;font-size:16px;border-radius:5px;background-color:#33436A;color:white">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
+                                    style="float:left;margin-right:5px;margin-top:4px" width="16" height="16"
+                                    fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
-                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </icon>
-                            <icon class="down_arrow_leave">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </icon>
-                            <hr style="margin:37px -20px 0px -20px">
+                                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                                </svg>Get Back</a>
                         </div>
-                    </div>
+                        <div class="col-12" style="margin-top: 30px" id="certificate_download_area">
+                            <div class="row" style="padding: 40px;">
+                                <div class="col-12" style="margin-bottom: 20px;">
+                                    <img src="{{asset('assets\images\Coat_of_Arms.png')}}" style="float:left"
+                                        width="150" height="150">
+                                    <img src="{{asset('assets\images\school.png')}}" style="float:right" width="150"
+                                        height="150">
+                                </div>
+                                <div class="col-6">
+                                    <p style="text-align: left;">REPUBLIC OF KENYA</p>
+                                    <p style="text-align: left;">MINISTARY OF EDUCATION </p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="text-align: right;">BIBIRINI HIGH SCHOOL-LIMURU</p>
+                                    <p style="text-align: right;">553Limuru</p>
+                                </div>
+                                <div class="col-12" style="margin-top:40px;padding:0px 40px">
+                                    <p style="text-align:center;font-size:30px;text-decoration:underline">SECONDARY
+                                        SCHOOOL
+                                        LEAVING
+                                        CERTIFICATE
+                                    </p>
+                                    <div class="row" style="margin-bottom: 40px; margin-top:50px">
+                                        <div class="col-10" style="display: flex;">
+                                            <div style="float:left;margin-right:5px">Adminsion/Serial
+                                                No.
+                                            </div>
+                                            <div style="border-bottom:1px dotted black">{{$userdata->adm_no}}</div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="row">
+                                                <div class="col-7" style="margin-right:5px">UPI
+                                                    No.
+                                                </div>
+                                                <div class="col-3" style="border-bottom:1px dotted black"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12" style="padding:0px;margin-bottom:15px">
+                                            <div class="row">
+                                                <div class="col-3" style="text-align:left">This is to certificate
+                                                    that</div>
+                                                <div class="col-8"
+                                                    style="border-bottom:1px dotted black;text-align:center">
+                                                    {{$userdata->user->name}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding:0px;margin-bottom:15px">
+                                            <div class="col-2.5" style="float:left;text-align:left">
+                                                Entered this school on
+                                            </div>
+                                            <div class="col-2"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center;margin-right:20p">
+                                                {{$userdata->user->addmissiondate}}
+                                            </div>
+                                            <div class="col-2.5" style="float:left;text-align:left;margin-left:30px">
+                                                and was enrolled in form</div>
+                                            <div class="col-1"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center;margin-left:30px">
+                                                1</div>
+                                            <div class="col-3" style="float:left;text-align:left;margin-left:30px">
+                                                and left in
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:15px">
+                                            <div class="col-2"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center">
+                                                APRIL 2022
+                                            </div>
+                                            <div class="col-1" style="float:left;text-align:left;margin-left:10px">
+                                                from</div>
+                                            <div class="col-2"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center">
+                                                Form 4
+                                            </div>
+                                            <div class="col-4" style="float:left;text-align:left;margin-left:30px">
+                                                Having satisfactrily completed the
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:15px">
+                                            <div class="col-3" style="float:left;text-align:left">
+                                                approved course for </div>
+                                            <div class="col-2"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center">
+                                                Form 4
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:15px">
+                                            <div class="col-4" style="float:left;text-align:left">
+                                                Date of Birth (In Admission register)</div>
+                                            <div class="col-2"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center">
+                                                {{$userdata->user->birthdate}}
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:15px;text-align:left">
+                                            Principal's report on the pupil's ability, industry and conduct
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:40px">
+                                            <div class="col-11"
+                                                style="border-bottom:1px dotted black;float:left;text-align:center;text-align:left">
+                                                <span style="font-weight: bold;">
+                                                    {{$userdata->user->generalcomment}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:55px">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="row">
+                                                        <div class="col-6" style="text-align:left">
+                                                            Student Signaturesgnature</div>
+                                                        <div class="col-4"
+                                                            style="border-bottom:1px dotted black;text-align:center">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-5">
+                                                    <div class="col-5" style="float:left;text-align:left">
+                                                        Date of Issue</div>
+                                                    <div class="col-4"
+                                                        style="border-bottom:1px dotted black;float:left;text-align:center">
+                                                        02/12/2023
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" style="padding: 0px;margin-bottom:15px">
+                                            <div class="row">
+                                                <div class="col-4"></div>
+                                                <div class="col-2" style="float:left;text-align:left">
+                                                    Signature</div>
+                                                <div class="col-2"
+                                                    style="border-bottom:1px dotted black;float:left;text-align:center">
 
-                    <div class="row" id="leave_certificate" style="margin-top:15px">
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-form" style="float:left;font-weight:bold">Residence</label>
-                                <select name="select-form"
-                                    style="font-size:16px;background-color:white !important;color:black;"
-                                    id="select_form_leave" class="form-control" data-placeholder="Select Form" required>
-                                    <option value="">Select Residence</option>
-                                    @foreach($form as $val)
-                                    <option value={{$val->id}}>{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Form is required.
+                                                </div>
+                                            </div>
+                                            <p
+                                                style="margin-top:50px;line-height:0.8;font-weight:bold;text-align:center">
+                                                Mr.Marcheria
+                                            </p>
+                                            <p style="font-weight: bold;text-align:center">Principal </p>
+                                            <p style="margin-top:70px;font-weight:bold;text-align:center">
+                                                This certificate was issued without any erasure or alteration whatsoever
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-stream" style="float:left;font-weight:bold">Form</label>
-                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
-                                    id="select_stream_leave" class="form-control"
-                                    data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Form</option>
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-stream" style="float:left;font-weight:bold">Stream</label>
-                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
-                                    id="select_stream_leave" class="form-control"
-                                    data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Stream</option>
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
-                                <!-- <button type="button" id="search_certificate" class="btn btn-primary"
-                                    style="float:right;margin-top:10px;margin-bottom:10px;font-size:16px;border-radius:5px;">Search
-                                </button> -->
                             </div>
                         </div>
                     </div>

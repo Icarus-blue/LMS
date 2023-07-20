@@ -15,7 +15,6 @@ use App\Models\ExamRecord;
 use App\Models\Student;
 use App\Models\Grade;
 
-
 class MyClassRepo
 {
 
@@ -27,6 +26,10 @@ class MyClassRepo
     public function getsubjectteacherID($class_id, $subject_id)
     {
         return ClassSubject::where(['my_class_id' => $class_id, 'subject_id' => $subject_id])->first();
+    }
+
+    public function getUserData($id){
+        return Student::where('id',$id)->with("user")->first();
     }
 
     public function get_stu_list($stream_id)

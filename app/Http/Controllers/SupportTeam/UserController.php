@@ -31,7 +31,6 @@ class UserController extends Controller
 
     public function index()
     {
-
         $ut = $this->user->getAllTypes();
         $ut2 = $ut->where('level', '>', 2);
 

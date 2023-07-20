@@ -18,6 +18,17 @@
     line-height: 1;
 }
 
+/* select {
+    height: 100px !important;
+} */
+
+
+select option {
+    max-height: 80px !important;
+    /* Set the maximum height for the option dropdown */
+    overflow-y: auto !important;
+}
+
 #studentlist_leave_wrapper {
     padding: 0px 30px
 }
@@ -199,11 +210,11 @@ td {
 </style>
 
 
-<div class="card" style="font-family:Arial, Helvetica, sans-serif">
+<div class="card" style="font-family:Arial, Helvetica, sans-serif" onload="alert()">
 
     <div class="card-body" style="background-color: #F5F5F5;padding-bottom:580px">
         <ul class="nav nav-tabs nav-tabs-highlight cardpos" style=" transform:translateX(-22px);">
-            <li class="nav-item"><a href="#class-lists" class="nav-link active" data-toggle="tab">Class Lists</a></li>
+            <li class="nav-item"><a href="#class-lists" class="nav-link " data-toggle="tab">Class Lists</a></li>
             <li class="nav-item"><a href="#analysis-report" class="nav-link" data-toggle="tab">Analysis Report</a></li>
             <li class="nav-item"><a href="#report-forms" class="nav-link" data-toggle="tab">Report Forms</a></li>
             <li class="nav-item"><a href="#merit-lists" class="nav-link" data-toggle="tab">Merit Lists</a></li>
@@ -217,7 +228,7 @@ td {
                             d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                     </svg> More</button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item nav-link" data-toggle="tab" href="#leavingcertificate"><svg
+                    <a class="dropdown-item nav-link active" data-toggle="tab" href="#leavingcertificate"><svg
                             xmlns="http://www.w3.org/2000/svg" style="margin-right:7px" width="16" height="16"
                             fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
@@ -235,7 +246,7 @@ td {
             </li>
         </ul>
         <div class="tab-content " style="background-color: initial;margin:50px 10px">
-            <div class="tab-pane fade show active" id="class-lists" style="padding:20px;">
+            <div class="tab-pane fade" id="class-lists" style="padding:20px;">
                 <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
                     <div class="row">
                         <div class="col-12">
@@ -2186,7 +2197,7 @@ td {
             </div>
 
 
-            <div class="tab-pane fade" id="leavingcertificate">
+            <div class="tab-pane fade show active" id="leavingcertificate">
                 <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
                     <div class="row">
                         <div class="col-12">
@@ -2273,82 +2284,7 @@ td {
 
 
             <div class="tab-pane fade" id="houselist">
-                <div class="col-12" style="background-color:white;padding:20px 20px 0px 20px">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4 style="text-align: left;margin-left:20px;float:left">House List</h4>
-                            <icon class="up_arrow_leave">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 2.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 3.707 2.354 9.354a.5.5 0 1 1-.708-.708l6-6z" />
-                                    <path fill-rule="evenodd"
-                                        d="M7.646 6.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 7.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
-                                </svg>
-                            </icon>
-                            <icon class="down_arrow_leave">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    style="float:right;margin-right:20px;color:#CE9178" width="16" height="16"
-                                    fill="currentColor" class="bi bi-chevron-double-down" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                                </svg>
-                            </icon>
-                            <hr style="margin:37px -20px 0px -20px">
-                        </div>
-                    </div>
-
-                    <div class="row" id="leave_certificate" style="margin-top:15px">
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-form" style="float:left;font-weight:bold">Residence</label>
-                                <select name="select-form"
-                                    style="font-size:16px;background-color:white !important;color:black;"
-                                    id="select_form_leave" class="form-control" data-placeholder="Select Form" required>
-                                    <option value="">Select Residence</option>
-                                    @foreach($form as $val)
-                                    <option value={{$val->id}}>{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Form is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-stream" style="float:left;font-weight:bold">Form</label>
-                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
-                                    id="select_stream_leave" class="form-control"
-                                    data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Form</option>
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" style="padding:0px 40px">
-                            <div class="form-group">
-                                <label for="select-stream" style="float:left;font-weight:bold">Stream</label>
-                                <select name="select-stream" style="font-size:16px;background-color:white !important;"
-                                    id="select_stream_leave" class="form-control"
-                                    data-placeholder="Select Stream(Optional)" required>
-                                    <option value="">Select Stream</option>
-                                </select>
-                                <div class="invalid-feedback" style="text-align: left;">
-                                    Stream is required.
-                                </div>
-                                <!-- <button type="button" id="search_certificate" class="btn btn-primary"
-                                    style="float:right;margin-top:10px;margin-bottom:10px;font-size:16px;border-radius:5px;">Search
-                                </button> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                house list
             </div>
         </div>
     </div>
@@ -2359,4 +2295,56 @@ td {
 @include('partials.js.report_forms')
 @include('partials.js.transcripts')
 @include('partials.js.finaltab')
+
 @endsection
+
+<script onload="loadfunc()">
+window.onload = function() {
+    let stream_id = 80;
+    let form_id = 2;
+    document.getElementById("select_form_leave").value = form_id;
+
+    $.post("{{route('get_stream_according_to_form')}}", {
+        form_id: form_id
+    }, (res) => {
+        res = JSON.parse(res)
+        streams_arr = res.streams
+        option_arr = "<option>Select Stream</option>";
+        for (streams_arr_entity of streams_arr) {
+            option_arr +=
+                `<option value="${streams_arr_entity.id}">${streams_arr_entity.stream}</option>`
+        }
+        $("#select_stream_leave").children().remove();
+        $("#select_stream_leave").append(option_arr);
+    })
+
+    setTimeout(() => {
+        const select = document.getElementById("select_stream_leave"); // Get the select element
+        const desiredValue = 81; // Set the desired value
+        if (select.options.length !== 1) {
+            // Iterate through each option in the select element
+            for (let i = 0; i < select.options.length; i++) {
+                // If an option with the desired value is found, select it and exit the loop
+                if (select.options[i].value == desiredValue) {
+                    console.log(select.options[i].value);
+                    select.options[i].selected = true;
+                    break;
+                }
+            }
+
+        }
+    }, 1000);
+
+
+    $.post("{{route('search_stream_certificate')}}", {
+        stream_id: stream_id,
+        form_id: form_id
+    }, (res) => {
+        res = JSON.parse(res);
+        console.log(res);
+        $("#studentlist_panel").show(600);
+        disStudentList(res.data, res.streamname)
+    })
+
+};
+</script>

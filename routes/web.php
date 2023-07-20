@@ -15,7 +15,7 @@ Route::post('setAdmin', 'HomeController@setAdmin');
 Route::post('passwordRequest', 'HomeController@passwordRequest');
 Route::post('contactRequest', 'HomeController@contactRequest');
 Route::post('updateMessageState', 'HomeController@updateMessageState');
-
+Route::get('editprofile/{user_id}', 'PrintOutsController@editprofile')->name('editprofile');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@dashboard')->name('home');
@@ -194,6 +194,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('calevents_delete', 'CaleventsController@deleteCalevent')->name('calevents_delete');
 
         Route::get('printouts', 'PrintOutsController@index')->name('printouts');
+        Route::post('viewcertificate', 'PrintOutsController@viewcertificate')->name('viewcertificate');
+        Route::post('updatestudentprofile', 'PrintOutsController@updatestudentprofile')->name('updatestudentprofile');
+        Route::get('editstudentprofile/{user_id}', 'PrintOutsController@editstudentprofile')->name('editstudentprofile');
+        Route::get('reverse/{stream_id}/{form_id}', 'PrintOutsController@reverse')->name('reverse');
+        Route::get('editprofile/{user_id}', 'PrintOutsController@editprofile')->name('editprofile');
         Route::get('download_metalist_pdf', 'PrintOutsController@download_metalist_pdf')->name('download_metalist_pdf');
         Route::post('custom_excel_download', 'PrintOutsController@custom_excel_download')->name('custom_excel_download');
         Route::get('download_class_list_pdf', 'PrintOutsController@download_class_list_pdf')->name('download_class_list_pdf');
@@ -201,9 +206,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('download_template_excel', 'PrintOutsController@download_template_excel')->name('download_template_excel');
         Route::get('download_classlist_excel', 'PrintOutsController@download_classlist_excel')->name('download_classlist_excel');
         Route::post('adding_metalist_table', 'PrintOutsController@adding_metalist_table')->name('adding_metalist_table');
-        Route::post('get_stream_according_to_form', 'PrintOutsController@get_stream_value_by_form');
+        Route::post('get_stream_according_to_form', 'PrintOutsController@get_stream_value_by_form')->name('get_stream_according_to_form');
         Route::post('get_meta_list', 'PrintOutsController@get_meta_list');
         Route::post('get_meta_data_for_report_form', 'PrintOutsController@get_meta_data_for_report_form');
+        Route::post('search_stream_certificate', 'PrintOutsController@search_stream_certificate')->name('search_stream_certificate');
         Route::post('get_meta_data_for_transcripts', 'PrintOutsController@get_meta_data_for_transcripts');
         Route::post('get_analysis_data', 'PrintOutsController@get_analysis_data');
         Route::get('shop', 'ShopController@index')->name('shop');

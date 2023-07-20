@@ -22,6 +22,10 @@ class UserRepo {
         return User::where('user_type_id',5)->first();
     }
 
+    public function updateuserprofile($userid,$userdata){
+        return User::where('id',$userid)->update($userdata);
+    }
+
     public function updateZero(){
         return User::where('state', 1)->update(['state'=>0]);
     }

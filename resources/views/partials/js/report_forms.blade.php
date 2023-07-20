@@ -138,42 +138,72 @@ function check_biger_new(data) {
     }
 }
 
-$("#select_stream_report_form").on("click", (e) => {
-    stream_id = e.target.value;
-    if (stream_id != "") {
-        $("#exam_area_report_form").hide();
-        $(".spinner-square").show();
-        setTimeout(() => {
-            $(".spinner-square").hide();
-            $("#exam_area_report_form").show(600);
-        }, 3000);
-    }
+// $("#select_stream_report_form").on("click", (e) => {
+//     stream_id = e.target.value;
+//     if (stream_id != "") {
+//         $("#exam_area_report_form").hide();
+//         $(".spinner-square").show();
+//         setTimeout(() => {
+//             $(".spinner-square").hide();
+//             $("#exam_area_report_form").show(600);
+//         }, 3000);
+//     }
 
-})
+// })
+
+function validateInput(input) {
+    if (!input.checkValidity()) {
+        input.classList.add('is-invalid');
+    } else {
+        input.classList.remove('is-invalid');
+    }
+}
 
 $("#get_report_form").on("click", () => {
-    $("#report_form_first").hide()
-    str =
-        '<div class="col-12" id="spinner_area" style="margin-top:70px"><p stye="font-size:25px;">Generating Report Forms , Please wait ....</p><div class="spinner-square" style="margin:auto"><div class="square-1 square"></div><div class="square-2 square"></div><div class="square-3 square"></div></div></div>'
-    $("#spin-div").append(str)
-    setTimeout(() => {
-        $("#spinner_area").hide();
-        $("#print_arr").show(600);
-    }, 3000);
-    stream_id = $("#select_stream_report_form").val();
-    exam_id = $("#select_exam_report_form").val();
-    form_id = $("#select_form_report_form").val();
-    $.post("get_meta_data_for_report_form", {
-        stream_id: stream_id,
-        exam_id: exam_id,
-        form_id: form_id
-    }, (res) => {
-        res = JSON.parse(res);
-        $("#student_card_panel").show();
-        showDataOn(res.data);
-        showDataOn_orssa(res.data);
-        numarr = res.data.length;
-    })
+    const input1 = document.getElementById('select_form_report_form');
+    const input2 = document.getElementById('select_stream_report_form');
+    const input3 = document.getElementById('select_exam_report_form');
+    stream_id = input2.value;
+    exam_id = input3.value;
+    form_id = input1.value;
+    input1.addEventListener('blur', function() {
+        validateInput(input1);
+    });
+
+    input2.addEventListener('blur', function() {
+        validateInput(input2);
+    });
+
+    input3.addEventListener('blur', function() {
+        validateInput(input3);
+    });
+
+    validateInput(input1);
+    validateInput(input2);
+    validateInput(input3);
+    if (form_id.trim() !== '' && exam_id.trim() !== '' && stream_id.trim() !== '') {
+        $("#report_form_first").hide()
+        str =
+            '<div class="col-12" id="spinner_area" style="margin-top:70px"><p stye="font-size:25px;">Generating Report Forms , Please wait ....</p><div class="spinner-square" style="margin:auto"><div class="square-1 square"></div><div class="square-2 square"></div><div class="square-3 square"></div></div></div>'
+        $("#spin-div").append(str)
+        setTimeout(() => {
+            $("#spinner_area").hide();
+            $("#print_arr").show(600);
+        }, 3000);
+
+        $.post("get_meta_data_for_report_form", {
+            stream_id: stream_id,
+            exam_id: exam_id,
+            form_id: form_id
+        }, (res) => {
+            res = JSON.parse(res);
+            $("#student_card_panel").show();
+            showDataOn(res.data);
+            showDataOn_orssa(res.data);
+            numarr = res.data.length;
+        })
+    }
+
 })
 
 const showDataOn = (data) => {

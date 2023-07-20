@@ -55,26 +55,46 @@ $("#select_form_transcripts").on("click", (e) => {
     }
 })
 
-
+function validateInput(input) {
+    if (!input.checkValidity()) {
+        input.classList.add('is-invalid');
+    } else {
+        input.classList.remove('is-invalid');
+    }
+}
 $("#get_transcripts").on("click", () => {
-    $("#transcripts_first").hide()
-    str =
-        '<div class="col-12" id="spinner_area_transcripts" style="margin-top:70px"><p stye="font-size:25px;">Generating Transcripts , Please wait ....</p><div class="spinner-square" style="margin:auto"><div class="square-1 square"></div><div class="square-2 square"></div><div class="square-3 square"></div></div></div>'
-    $("#spin-div-transcripts").append(str)
-    setTimeout(() => {
-        $("#spinner_area_transcripts").hide();
-        $("#transcript_panel").show(600);
-    }, 3000);
-    stream_id = $("#select_stream_transcripts").val();
-    form_id = $("#select_form_transcripts").val();
-    $.post("get_meta_data_for_transcripts", {
-        stream_id: stream_id,
-        form_id: form_id
-    }, (res) => {
-        res = JSON.parse(res);
-        $("#trans_show_panel").show();
-        displayData(res.data);
-    })
+    const input1 = document.getElementById('select_form_transcripts');
+    const input2 = document.getElementById('select_stream_transcripts');
+    stream_id = input2.value;
+    form_id = input1.value;
+    input1.addEventListener('blur', function() {
+        validateInput(input1);
+    });
+
+    input2.addEventListener('blur', function() {
+        validateInput(input2);
+    });
+    validateInput(input1);
+    validateInput(input2);
+    if (form_id.trim() !== '' && stream_id.trim() !== '') {
+        $("#transcripts_first").hide()
+        str =
+            '<div class="col-12" id="spinner_area_transcripts" style="margin-top:70px"><p stye="font-size:25px;">Generating Transcripts , Please wait ....</p><div class="spinner-square" style="margin:auto"><div class="square-1 square"></div><div class="square-2 square"></div><div class="square-3 square"></div></div></div>'
+        $("#spin-div-transcripts").append(str)
+        setTimeout(() => {
+            $("#spinner_area_transcripts").hide();
+            $("#transcript_panel").show(600);
+        }, 3000);
+
+        $.post("get_meta_data_for_transcripts", {
+            stream_id: stream_id,
+            form_id: form_id
+        }, (res) => {
+            res = JSON.parse(res);
+            $("#trans_show_panel").show();
+            displayData(res.data);
+        })
+    }
 })
 
 function displayData(data) {
@@ -86,13 +106,13 @@ function displayData(data) {
                                                 <img style="display:inline-block;border-radius:5px;margin-bottom:20px"
                                                     src="{{asset('assets/images/avatar_blue.png')}}" style="float:left"
                                                     width="150" height="150">
-                                                <p>NAME:${studentdata.name}</p>
-                                                <p>ADMISSION NUMBER:${studentdata.admno}</p>
-                                                <p>CURRENT Form:${studentdata.currentform}</p>
-                                                <p>KCPE SCORE:${studentdata.kcpe}</p>
+                                                <p>Name:${titleCase(studentdata.name)}</p>
+                                                <p>Admission Number:${studentdata.admno}</p>
+                                                <p>Current Form:${studentdata.currentform}</p>
+                                                <p>KCPE Score:${studentdata.kcpe}</p>
                                             </div>
                                             <div class="col-4" >
-                                                <p style="font-size:30px;text-align:left;margin-bottom:20px">
+                                                <p style="font-size:30px;text-align:left;margin-bottom:5px">
                                                     {{$schoolname->school_name}}-{{$schoolname->school_postal}}
                                                 </p>
                                                 <p>Academic Transcripts</p>
@@ -101,9 +121,17 @@ function displayData(data) {
                                                 <img src="{{asset('assets/images/school.png')}}"
                                                     style="padding-top:40px;margin-bottom:20px" width="150"
                                                     height="150">
-                                                <p>553Limuru</p>
-                                                <p>00</p>
-                                                <p>bibrioniboyz@gmail.com</p>
+                                                    <div class="row">
+                                                        <div class="col-6"></div>
+                                                        <div class="col-6">
+                                                            <div style="text-align:left">
+                                                                <p style="line-height:0.8">553Limuru</p>
+                                                                <p style="line-height:0.8">00</p>
+                                                                <p style="line-height:0.8">bibrioniboyz@gmail.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                             </div>
                                         </div>
                                         <div class="row" style="padding:0px 20px;margin-bottom:50px">
@@ -269,6 +297,16 @@ if (toggleableElement2) {
             }
         }
     });
+}
+
+function titleCase(str) {
+    var words = str.toLowerCase().split(" ");
+    for (var i = 0; i < words.length; i++) {
+        var firstLetter = words[i].charAt(0).toUpperCase();
+        var restOfWord = words[i].slice(1);
+        words[i] = firstLetter + restOfWord;
+    }
+    return words.join(" ");
 }
 
 var toggleCheckbox3 = document.getElementById('showdesc');

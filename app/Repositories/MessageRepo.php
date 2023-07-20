@@ -18,7 +18,6 @@ class MessageRepo{
             array_push($bbb, array(
                 'id' => $val->id,
                 'title'=>$val->subject,
-                'name' => $val->sender->name,
                 'user_id' => $val->sender_id,
                 'type'=> $val->message_type,
                 'recipients'=>count(explode(",", $val->receiver)),

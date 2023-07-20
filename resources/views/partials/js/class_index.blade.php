@@ -607,11 +607,6 @@ $('#create_staff_form').on('submit', function(e) {
             form_id: form_id
         }, (res) => {
             res = JSON.parse(res);
-            console.log(":::::::::::::::::", res.form_name[0].name);
-            console.log(":::::::::::::::::", res.stream_name[0].stream);
-            console.log(":::::::::::::::::", res.exam_name[0].name);
-            console.log(":::::::::::::::::", res.form_name[0].name);
-            console.log(":::::::::::::::::", res.exam_name[0].year);
             $(".form_name").text(res.form_name[0].name)
             $(".stream_name").text(res.stream_name[0].stream)
             $(".exam_name").text(res.exam_name[0].name)
@@ -2104,7 +2099,7 @@ $("#get_class_list").click(() => {
 }
 
 #swal2-html-container {
-    height: 50px;
+    height: 185px;
 
     font-size: 20px;
     padding: 0px 20px;

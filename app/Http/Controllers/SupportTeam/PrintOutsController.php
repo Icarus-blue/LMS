@@ -26,6 +26,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UsersImport;
 use File;
 use PDF;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class PrintOutsController extends Controller
 {
@@ -44,6 +45,7 @@ class PrintOutsController extends Controller
 
     public function index()
     {
+
         $d['user'] = $this->user;
         $d['schoolname'] = $this->user->getschoolname();
         $d['messages'] = $this->message_repo->getMessages(Auth::user()->phone);
@@ -52,6 +54,22 @@ class PrintOutsController extends Controller
         $d['form'] = $this->exam->get_all_form();
         $d['subjects'] = $this->exam->get_all_form();
         return view('pages.support_team.printouts.index', $d);
+    }
+
+    public function reverse(Request $req)
+    {
+        $stream_id = $req['stream_id'];
+        $form_id = $req['form_id'];
+        $d['form_id'] =  $form_id ;
+        $d['stream_id'] =  $stream_id ;
+        $d['user'] = $this->user;
+        $d['schoolname'] = $this->user->getschoolname();
+        $d['messages'] = $this->message_repo->getMessages(Auth::user()->phone);
+        $d['exams'] = $this->exam->all();
+        $this->user->updateZero();
+        $d['form'] = $this->exam->get_all_form();
+        $d['subjects'] = $this->exam->get_all_form();
+        return view('pages.support_team.printouts.reverse', $d);
     }
 
     public function get_stream_value_by_form(Request $req)
@@ -317,7 +335,6 @@ class PrintOutsController extends Controller
 
     public function custom_excel_download(Request $req)
     {
-        dd($req['values']);
     }
 
     public function getsubjectlists(Request $req)
@@ -952,6 +969,42 @@ class PrintOutsController extends Controller
         return json_encode(["data" => $arranged_stu_arr]);
     }
 
+    public function viewcertificate(Request $req)
+    {
+        $studentid = $req['id'];
+        $userdata = $this->my_class->getUserData($studentid);
+        return json_encode(["data" => $userdata]);
+    }
+
+    public function updatestudentprofile(Request $req)
+    {
+        $userid = $req['studentid'];
+        $userdata = $req['userdata'];
+        $this->user->updateuserprofile($userid, $userdata);
+    }
+
+    public function editstudentprofile(Request $req)
+    {
+        $studentid = $req['user_id'];
+        $d['user'] = $this->user;
+        $d['schoolname'] = $this->user->getschoolname();
+        $d['messages'] = $this->message_repo->getMessages(Auth::user()->phone);
+        $d['exams'] = $this->exam->all();
+        $this->user->updateZero();
+        $d['form'] = $this->exam->get_all_form();
+        $d['subjects'] = $this->exam->get_all_form();
+        $userdata = $this->my_class->getUserData($studentid);
+        $d['userdata'] = $userdata;
+        return view('pages.support_team.printouts.certificate', $d);
+    }
+
+    public function editprofile(Request $req)
+    {
+        $userdata = $this->my_class->getUserData($req['user_id']);
+        $d['user'] = $userdata;
+        return view('pages.support_team.printouts.editprofile', $d);
+    }
+
     public function get_meta_data_for_transcripts(Request $req)
     {
         $stream_id = $req['stream_id'];
@@ -970,19 +1023,29 @@ class PrintOutsController extends Controller
                 }
             }
             $subjectname_arr = [];
-            foreach( $sub_arr as $val){
-                array_push($subjectname_arr,$this->exam->getsubjectName($val)->title);
+            foreach ($sub_arr as $val) {
+                array_push($subjectname_arr, $this->exam->getsubjectName($val)->title);
             }
             $data = [
                 "admno" => $eachstudent->adm_no,
                 "name" => $eachstudent->user->name,
                 "currentform" =>  $form_id . " " . $stream_name,
-                "kcpe" =>$eachstudent->kcpe,
-                "subjectname"=>$subjectname_arr
+                "kcpe" => $eachstudent->kcpe,
+                "subjectname" => $subjectname_arr
             ];
             array_push($arranged_stu_arr,  $data);
         }
         return json_encode(["data" => $arranged_stu_arr]);
+    }
+
+    public function  search_stream_certificate(Request $req)
+    {
+        $stream_id = $req['stream_id'];
+        $form_id = $req['form_id'];
+        $streamname = $this->my_class->get_stream_name($stream_id)->stream;
+        $streamdata = $this->my_class->get_stu_list($stream_id);
+
+        return json_encode(["data" => $streamdata, 'streamname' => $streamname]);
     }
 
     public function get_each_student_marks($data, $form_id, $exam_id)
